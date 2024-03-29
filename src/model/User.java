@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Map;
+
 public class User extends Person{
     private int userId;
     private float balance;
@@ -48,6 +50,32 @@ public class User extends Person{
 
     public void addBalance(int balance){
         this.balance += balance;
+    }
+
+    public void deductBalance(float balance){this.balance -= balance;}
+
+    public void buyItem(ShopProduct product, int quantity) {
+        Shop.getInstance().buyItem(product, quantity, this);
+    }
+
+    public void addToWishlist(Product product, int quantity) {
+        this.getWishList().addProduct(product, quantity);
+        System.out.println("Product added to wishlist.");
+    }
+
+    public void viewWishlist() {
+        WishList wishlist = this.getWishList();
+        Map<Product, Integer> products = wishlist.getProducts();
+        if (products.isEmpty()) {
+            System.out.println("Wishlist is empty.");
+        } else {
+            System.out.println("Wishlist:");
+            for (Map.Entry<Product, Integer> entry : products.entrySet()) {
+                Product product = entry.getKey();
+                int quantity = entry.getValue();
+                System.out.println("Product: " + product.getNume() + ", Quantity: " + quantity);
+            }
+        }
     }
 
 

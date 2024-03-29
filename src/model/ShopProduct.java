@@ -2,10 +2,12 @@ package model;
 
 public class ShopProduct extends Product{
     private int priceSell;
+    private int quantity;
 
-    public ShopProduct(int productId, String nume, String category, int priceBuy, int priceSell) {
+    public ShopProduct(int productId, String nume, String category, int priceBuy, int priceSell, int quantity) {
         super(productId, nume, category, priceBuy);
         this.priceSell = priceSell;
+        this.quantity = quantity;
     }
 
     public int getPriceSell() {
@@ -16,6 +18,14 @@ public class ShopProduct extends Product{
         this.priceSell = priceSell;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     @Override
     public String toString() {
         return "ShopProduct{" +
@@ -24,6 +34,7 @@ public class ShopProduct extends Product{
                 ", category='" + this.getCategory() + '\'' +
                 ", priceBuy=" + this.getPriceBuy() +
                 ", priceSell=" + priceSell +
+                ", quantity=" + quantity +
                 '}';
     }
 }

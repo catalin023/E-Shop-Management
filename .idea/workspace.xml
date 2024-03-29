@@ -4,19 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79059579-1c12-413d-b20b-a9c2c7701c8f" name="Changes" comment="model classes">
-      <change afterPath="$PROJECT_DIR$/src/dao/AdminDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dao/DistributorDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dao/ProductDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dao/UserDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/daoImpl/AdminDAOImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/daoImpl/DistributorDAOImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/daoImpl/ProductDAOImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/daoImpl/UserDAOImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/ShopProduct.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/WishList.java" afterDir="false" />
+    <list default="true" id="79059579-1c12-413d-b20b-a9c2c7701c8f" name="Changes" comment="DAO">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dao/DistributorDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/DistributorDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/daoImpl/DistributorDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/daoImpl/DistributorDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Admin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Distributor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Distributor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/Shop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Shop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/ShopProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/ShopProduct.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -73,7 +68,7 @@
       <option name="presentableId" value="Default" />
       <updated>1711707032832</updated>
       <workItem from="1711707033932" duration="8530000" />
-      <workItem from="1711733730460" duration="4509000" />
+      <workItem from="1711733730460" duration="8675000" />
     </task>
     <task id="LOCAL-00001" summary="create_project">
       <option name="closed" value="true" />
@@ -123,7 +118,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711718326065</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="DAO">
+      <option name="closed" value="true" />
+      <created>1711738355297</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1711738355297</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -145,7 +148,8 @@
     <MESSAGE value="user class" />
     <MESSAGE value="user and admin" />
     <MESSAGE value="model classes" />
-    <option name="LAST_COMMIT_MESSAGE" value="model classes" />
+    <MESSAGE value="DAO" />
+    <option name="LAST_COMMIT_MESSAGE" value="DAO" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

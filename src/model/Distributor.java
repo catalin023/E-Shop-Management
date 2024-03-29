@@ -39,4 +39,8 @@ public class Distributor {
                 ", products=" + products +
                 '}';
     }
+
+    public void addProduct(Product product) {
+        products.add(product);
+    }
 }
