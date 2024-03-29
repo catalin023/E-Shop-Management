@@ -4,20 +4,11 @@ public abstract class Person {
     private String name;
     private String email;
     private String password;
-    private double balance;
-
-    public Person(String name, String email, String password, double balance) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.balance = balance;
-    }
 
     public Person(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.balance = 0;
     }
 
     public String getName() {
@@ -44,21 +35,11 @@ public abstract class Person {
         this.password = password;
     }
 
-    public double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
-
     @Override
     public String toString() {
         return "Person{" +
                 "name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", balance=" + balance +
                 '}';
     }
 }

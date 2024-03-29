@@ -6,11 +6,13 @@ import java.util.List;
 public class Shop {
     private static Shop instance;
     private List<Product> products;
-    private Admin admin;
+    private List<Admin> admins;
     private List<User> users;
+    private float balance;
 
     private Shop() {
         this.products = new ArrayList<>();
+        this.admins = new ArrayList<>();
         this.users = new ArrayList<>();
     }
 
@@ -29,12 +31,12 @@ public class Shop {
         this.products = products;
     }
 
-    public Admin getAdmin() {
-        return admin;
+    public List<Admin> getAdmins() {
+        return admins;
     }
 
-    public void setAdmin(Admin admin) {
-        this.admin = admin;
+    public void setAdmins(List<Admin> admins) {
+        this.admins = admins;
     }
 
     public List<User> getUsers() {
@@ -45,5 +47,11 @@ public class Shop {
         this.users = users;
     }
 
+    public float getBalance() {
+        return balance;
+    }
 
+    public void setBalance(float balance) {
+        this.balance = balance;
+    }
 }
