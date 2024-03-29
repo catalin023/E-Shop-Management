@@ -8,6 +8,11 @@ public class Admin  extends Person{
         this.adminId = adminId;
     }
 
+    public Admin(String name, String email, String password, double balance, int adminId) {
+        super(name, email, password, balance);
+        this.adminId = adminId;
+    }
+
     public int getAdminId() {
         return adminId;
     }
@@ -22,6 +27,7 @@ public class Admin  extends Person{
                 "adminId=" + adminId +
                 ", name='" + this.getName() + '\'' +
                 ", email='" + this.getEmail() + '\'' +
+                ", balance=" + this.getBalance() + '\'' +
                 '}';
     }
 }
