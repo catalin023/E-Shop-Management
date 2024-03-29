@@ -54,4 +54,10 @@ public class Shop {
     public void setBalance(float balance) {
         this.balance = balance;
     }
+
+    public void addBalance(float balance){this.balance += balance;}
+
+
+
+
 }
