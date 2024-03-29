@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79059579-1c12-413d-b20b-a9c2c7701c8f" name="Changes" comment="create_project">
-      <change afterPath="$PROJECT_DIR$/src/model/User.java" afterDir="false" />
+    <list default="true" id="79059579-1c12-413d-b20b-a9c2c7701c8f" name="Changes" comment="user class">
+      <change afterPath="$PROJECT_DIR$/src/model/Admin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/Person.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +60,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1711707032832</updated>
-      <workItem from="1711707033932" duration="1299000" />
+      <workItem from="1711707033932" duration="2291000" />
     </task>
     <task id="LOCAL-00001" summary="create_project">
       <option name="closed" value="true" />
@@ -76,7 +78,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711707572446</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="user class">
+      <option name="closed" value="true" />
+      <created>1711708360732</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1711708360732</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -95,7 +105,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="create_project" />
-    <option name="LAST_COMMIT_MESSAGE" value="create_project" />
+    <MESSAGE value="user class" />
+    <option name="LAST_COMMIT_MESSAGE" value="user class" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
