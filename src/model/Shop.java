@@ -1,5 +1,6 @@
 package model;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -102,6 +103,44 @@ public class Shop {
         return lowStockProducts;
     }
 
+    public void loadDataFromFile(String filename) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
+            // Load products
+            this.products = (List<ShopProduct>) ois.readObject();
+            // Load admins
+            this.admins = (List<Admin>) ois.readObject();
+            // Load users
+            this.users = (List<User>) ois.readObject();
+            // Load balance
+            this.balance = ois.readFloat();
+        } catch (IOException | ClassNotFoundException e) {
+            System.err.println("Error loading data from file: " + e.getMessage());
+        }
+    }
 
+    public void saveDataToFile(String filename) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
+            // Save products
+            oos.writeObject(this.products);
+            // Save admins
+            oos.writeObject(this.admins);
+            // Save users
+            oos.writeObject(this.users);
+            // Save balance
+            oos.writeFloat(this.balance);
+            System.out.println("Data saved successfully.");
+        } catch (IOException e) {
+            System.err.println("Error saving data to file: " + e.getMessage());
+        }
+    }
+
+    public ShopProduct getProductById(int productId) {
+        for (ShopProduct product : products) {
+            if (product.getProductId() == productId) {
+                return product;
+            }
+        }
+        return null; // Product not found
+    }
 
 }

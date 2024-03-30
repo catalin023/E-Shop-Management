@@ -1,15 +1,16 @@
 package service;
 
 import dao.ProductDAO;
+import daoImpl.ProductDAOImpl;
 import model.Product;
 
 import java.util.List;
 
 public class ProductService {
-    private final ProductDAO productDAO;
+    private ProductDAO productDAO;
 
-    public ProductService(ProductDAO productDAO) {
-        this.productDAO = productDAO;
+    public ProductService() {
+        this.productDAO = new ProductDAOImpl();
     }
 
     public List<Product> getAllProducts() {

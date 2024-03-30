@@ -5,6 +5,7 @@ import daoImpl.UserDAOImpl;
 import model.ShopProduct;
 import model.User;
 
+import java.io.*;
 import java.util.List;
 
 public class UserService {
@@ -44,5 +45,29 @@ public class UserService {
 
     public void viewWishlist(User user) {
         user.viewWishlist();
+    }
+
+
+
+    public void saveUsersToFile(List<User> users, String filename) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
+            oos.writeObject(users);
+            System.out.println("Users saved to file: " + filename);
+        } catch (IOException e) {
+            System.err.println("Error saving users to file: " + e.getMessage());
+        }
+    }
+
+    public List<User> loadUsersFromFile(String filename) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
+            List<User> loadedUsers = (List<User>) ois.readObject();
+            userDAO.getAllUsers().clear(); // Clear existing users
+            userDAO.getAllUsers().addAll(loadedUsers); // Add loaded users
+            System.out.println("Users loaded from file: " + filename);
+            return loadedUsers;
+        } catch (IOException | ClassNotFoundException e) {
+            System.err.println("Error loading users from file: " + e.getMessage());
+            return null;
+        }
     }
 }

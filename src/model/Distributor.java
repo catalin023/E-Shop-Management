@@ -1,9 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Distributor {
+public class Distributor implements Serializable {
     private String name;
     private List<Product> products = new ArrayList<>();
 

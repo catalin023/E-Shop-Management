@@ -2,7 +2,6 @@ package daoImpl;
 
 import dao.ProductDAO;
 import model.Product;
-import model.User;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -35,7 +34,7 @@ public class ProductDAOImpl implements ProductDAO {
         for (Product product : products){
             if (product.getProductId() == newProduct.getProductId()){
                 product.setCategory(newProduct.getCategory());
-                product.setNume(newProduct.getNume());
+                product.setName(newProduct.getName());
                 product.setPriceBuy(newProduct.getPriceBuy());
                 return;
             }

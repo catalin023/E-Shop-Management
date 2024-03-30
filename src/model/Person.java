@@ -1,6 +1,8 @@
 package model;
 
-public abstract class Person {
+import java.io.Serializable;
+
+public abstract class Person implements Serializable {
     private String name;
     private String email;
     private String password;
@@ -9,6 +11,9 @@ public abstract class Person {
         this.name = name;
         this.email = email;
         this.password = password;
+    }
+
+    public Person() {
     }
 
     public String getName() {

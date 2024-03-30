@@ -1,11 +1,23 @@
 package model;
 
-public class Admin  extends Person{
+import java.io.Serializable;
+
+public class Admin  extends Person implements Serializable {
+    private static int nextAdmin = 1;
     private int adminId;
+
+    public Admin(String name, String email, String password) {
+        super(name, email, password);
+        this.adminId = nextAdmin++;
+        nextAdmin++;
+    }
 
     public Admin(String name, String email, String password, int adminId) {
         super(name, email, password);
         this.adminId = adminId;
+    }
+
+    public Admin() {
     }
 
     public int getAdminId() {

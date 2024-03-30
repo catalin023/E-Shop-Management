@@ -1,16 +1,20 @@
 package model;
 
-public abstract class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
+    private static int nextProductId = 1;
     private int productId;
-    private String nume;
+    private String name;
     private String category;
     private int priceBuy;
 
-    public Product(int productId, String nume, String category, int priceBuy) {
-        this.productId = productId;
-        this.nume = nume;
+    public Product(String nume, String category, int priceBuy) {
+        this.productId = nextProductId++;
+        this.name = nume;
         this.category = category;
         this.priceBuy = priceBuy;
+        nextProductId++;
     }
 
     public int getProductId() {
@@ -21,12 +25,12 @@ public abstract class Product {
         this.productId = productId;
     }
 
-    public String getNume() {
-        return nume;
+    public String getName() {
+        return name;
     }
 
-    public void setNume(String nume) {
-        this.nume = nume;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCategory() {
@@ -49,7 +53,7 @@ public abstract class Product {
     public String toString() {
         return "Product{" +
                 "productId=" + productId +
-                ", nume='" + nume + '\'' +
+                ", nume='" + name + '\'' +
                 ", category='" + category + '\'' +
                 ", priceBuy=" + priceBuy +
                 '}';

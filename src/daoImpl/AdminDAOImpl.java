@@ -25,6 +25,15 @@ public class AdminDAOImpl implements AdminDAO {
         return null;
     }
 
+    public Admin getAdminByEmail(String email) {
+        for (Admin admin : admins){
+            if (admin.getEmail() == email){
+                return admin;
+            }
+        }
+        return null;
+    }
+
     @Override
     public void addAdmin(Admin admin) {
         admins.add(admin);

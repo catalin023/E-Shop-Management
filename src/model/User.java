@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Map;
 
-public class User extends Person{
+public class User extends Person implements Serializable {
     private int userId;
     private float balance;
     private WishList wishList;
@@ -73,7 +74,7 @@ public class User extends Person{
             for (Map.Entry<Product, Integer> entry : products.entrySet()) {
                 Product product = entry.getKey();
                 int quantity = entry.getValue();
-                System.out.println("Product: " + product.getNume() + ", Quantity: " + quantity);
+                System.out.println("Product: " + product.getName() + ", Quantity: " + quantity);
             }
         }
     }
