@@ -48,8 +48,8 @@ public class DistributorService {
         // Implement logic to read all distributors using Scanner input
         List<Distributor> distributors = distributorDAO.getAllDistributors();
         System.out.println("List of Distributors:");
-        for (Distributor distributor : distributors) {
-            System.out.println(distributor.getName());
+        for (int i = 0; i < distributors.size(); i++) {
+            System.out.println((i + 1) + ". " + distributors.get(i).toString());
         }
     }
 
@@ -73,9 +73,9 @@ public class DistributorService {
         System.out.println("Enter product category:");
         String productCategory = scanner.nextLine();
         System.out.println("Enter product price:");
-        int productPrice = Integer.parseInt(scanner.nextLine());
+        int productPrice = scanner.nextInt();
+        scanner.nextLine();
         Product product = new Product(productName, productCategory, productPrice);
-        distributor.addProduct(product);
         distributorDAO.addProductToDistributor(distributor.getName(), product);
         System.out.println("Product added to distributor.");
     }
