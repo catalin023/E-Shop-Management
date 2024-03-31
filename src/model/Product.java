@@ -49,6 +49,10 @@ public class Product implements Serializable {
         this.priceBuy = priceBuy;
     }
 
+    public static void setNextProductId(int nextProductId) {
+        Product.nextProductId = nextProductId;
+    }
+
     @Override
     public String toString() {
         return "Product{" +

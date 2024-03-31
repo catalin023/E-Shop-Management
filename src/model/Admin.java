@@ -28,6 +28,10 @@ public class Admin  extends Person implements Serializable {
         this.adminId = adminId;
     }
 
+    public static void setNextAdmin(int nextAdmin) {
+        Admin.nextAdmin = nextAdmin;
+    }
+
     @Override
     public String toString() {
         return "Admin{" +

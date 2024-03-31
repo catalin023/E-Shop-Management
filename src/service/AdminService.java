@@ -72,17 +72,9 @@ public class AdminService {
         }
     }
 
-    public void readProducts() {
-        System.out.println("List of Products:");
-        // Assuming you have a method to get all products from a data source
-        List<ShopProduct> products = Shop.getInstance().getProducts();
-        for (int i = 0; i < products.size(); i++) {
-            System.out.println((i + 1) + ". " + products.get(i).toString());
-        }
-    }
 
     public void updateProduct(Scanner scanner) {
-        this.readProducts();
+        Shop.getInstance().readProducts();
 
         System.out.println("Enter the number of the product to update:");
         int choice = scanner.nextInt();
@@ -105,7 +97,7 @@ public class AdminService {
     }
 
     public void deleteProduct(Scanner scanner) {
-        this.readProducts();
+        Shop.getInstance().readProducts();
 
         System.out.println("Enter the number of the product to delete:");
         int choice = scanner.nextInt();
@@ -170,12 +162,36 @@ public class AdminService {
         else {
             productInShop.setQuantity(productInShop.getQuantity() + quantity);
         }
+        Shop.getInstance().setBalance(Shop.getInstance().getBalance()-quantity*productToRestock.getPriceBuy());
     }
 
     public void updateAdmin(Admin admin, Scanner scanner) {
-        // Similar logic as updateProduct method
-        // Get the field to update and the new value from user input
-        // Update the admin's details accordingly
+        System.out.println("Do you want to update the name? (yes/no)");
+        String updateName = scanner.nextLine().toLowerCase();
+        if (updateName.equals("yes")) {
+            System.out.println("Enter new name:");
+            String newName = scanner.nextLine();
+            admin.setName(newName);
+            System.out.println("Name updated successfully.");
+        }
+
+        System.out.println("Do you want to update the email? (yes/no)");
+        String updateEmail = scanner.nextLine().toLowerCase();
+        if (updateEmail.equals("yes")) {
+            System.out.println("Enter new email:");
+            String newEmail = scanner.nextLine();
+            admin.setEmail(newEmail);
+            System.out.println("Email updated successfully.");
+        }
+
+        System.out.println("Do you want to update the password? (yes/no)");
+        String updatePassword = scanner.nextLine().toLowerCase();
+        if (updatePassword.equals("yes")) {
+            System.out.println("Enter new password:");
+            String newPassword = scanner.nextLine();
+            admin.setPassword(newPassword);
+            System.out.println("Password updated successfully.");
+        }
     }
 
 
@@ -194,11 +210,22 @@ public class AdminService {
             adminDAO.getAllAdmins().clear(); // Clear existing admins
             adminDAO.getAllAdmins().addAll(loadedAdmins); // Add loaded admins
             System.out.println("Admins loaded from file: " + filename);
+            determineNextAdminId(loadedAdmins);
             return loadedAdmins;
         } catch (IOException | ClassNotFoundException e) {
             System.err.println("Error loading admins from file: " + e.getMessage());
             return null;
         }
+    }
+
+    private static void determineNextAdminId(List<Admin> admins) {
+        int maxAdminId = 0;
+        for (Admin admin : admins) {
+            if (admin.getAdminId() > maxAdminId) {
+                maxAdminId = admin.getAdminId();
+            }
+        }
+        Admin.setNextAdmin(maxAdminId+1);
     }
 
 }

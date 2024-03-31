@@ -1,10 +1,7 @@
 package model;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class Shop {
     private static Shop instance;
@@ -60,7 +57,7 @@ public class Shop {
 
     public void addBalance(float balance){this.balance += balance;}
 
-    public void buyItem(ShopProduct product, int quantity, User user) {
+    public void buyItem(ShopProduct product, int quantity, User user, Scanner scanner) {
         if (products.contains(product)) {
             if (product.getQuantity() >= quantity && user.getBalance() >= (product.getPriceSell() * quantity)) {
                 product.setQuantity(product.getQuantity() - quantity);
@@ -68,6 +65,15 @@ public class Shop {
                 addBalance(product.getPriceSell() * quantity);
             } else {
                 System.out.println("Insufficient quantity or balance.");
+                System.out.println("Do you want to add the product to wishlist?(yes/no)");
+                String addWishList = scanner.nextLine().toLowerCase();
+                if (addWishList.equals("yes")){
+                    user.getWishList().addProduct(product, quantity);
+                }
+                else {
+                    return;
+                }
+
             }
         } else {
             System.out.println("Product not available in the shop.");
@@ -78,6 +84,15 @@ public class Shop {
     public void addProduct(ShopProduct product){
         products.add(product);
     }
+
+
+    public void readProducts() {
+        System.out.println("List of Products:");
+        for (int i = 0; i < products.size(); i++) {
+            System.out.println((i + 1) + ". " + products.get(i).toString());
+        }
+    }
+
 
     public List<ShopProduct> filterProductsByCategory(String category) {
         List<ShopProduct> filteredProducts = new ArrayList<>();

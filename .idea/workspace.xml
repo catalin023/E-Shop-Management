@@ -4,29 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79059579-1c12-413d-b20b-a9c2c7701c8f" name="Changes" comment="Service">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin_data.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/SharedData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/util/SharedDataFileHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user_data.txt" afterDir="false" />
+    <list default="true" id="79059579-1c12-413d-b20b-a9c2c7701c8f" name="Changes" comment="Distributor and Admin Service">
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dao/AdminDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/AdminDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/daoImpl/AdminDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/daoImpl/AdminDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/daoImpl/ProductDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/daoImpl/ProductDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin_data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/admin_data.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dao/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/UserDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/daoImpl/UserDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/daoImpl/UserDAOImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Admin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Distributor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Distributor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Person.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Product.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/Shop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Shop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/ShopProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/ShopProduct.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/WishList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/WishList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/service/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/AdminService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/service/DistributorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/DistributorService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/ProductService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/user_data.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,12 +56,13 @@
   "keyToString": {
     "Application.Application.executor": "Run",
     "Application.Main.executor": "Run",
+    "Application.conf1.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Asus/IdeaProjects/242PAOuniv",
+    "last_opened_file_path": "C:/Users/Asus/IdeaProjects/E-Shop Managment",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -78,6 +72,15 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="conf1" type="Application" factoryName="Application" singleton="false">
+      <option name="MAIN_CLASS_NAME" value="Application" />
+      <module name="E-Shop Managment" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -95,7 +98,8 @@
       <updated>1711707032832</updated>
       <workItem from="1711707033932" duration="8530000" />
       <workItem from="1711733730460" duration="8723000" />
-      <workItem from="1711794418975" duration="21530000" />
+      <workItem from="1711794418975" duration="21557000" />
+      <workItem from="1711883703894" duration="7849000" />
     </task>
     <task id="LOCAL-00001" summary="create_project">
       <option name="closed" value="true" />
@@ -169,7 +173,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711795265040</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Distributor and Admin Service">
+      <option name="closed" value="true" />
+      <created>1711837182181</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1711837182181</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -194,6 +206,7 @@
     <MESSAGE value="DAO" />
     <MESSAGE value="business functions" />
     <MESSAGE value="Service" />
-    <option name="LAST_COMMIT_MESSAGE" value="Service" />
+    <MESSAGE value="Distributor and Admin Service" />
+    <option name="LAST_COMMIT_MESSAGE" value="Distributor and Admin Service" />
   </component>
 </project>

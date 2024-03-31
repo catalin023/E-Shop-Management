@@ -1,6 +1,7 @@
 package daoImpl;
 
 import dao.UserDAO;
+import model.Admin;
 import model.User;
 
 import java.util.ArrayList;
@@ -55,4 +56,15 @@ public class UserDAOImpl implements UserDAO {
             }
         }
     }
+
+
+    public User getUserByEmail(String email) {
+        for (User user : users){
+            if (user.getEmail().equals(email)){
+                return user;
+            }
+        }
+        return null;
+    }
+
 }

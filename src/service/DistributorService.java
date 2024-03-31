@@ -174,11 +174,26 @@ public class DistributorService {
             distributorDAO.getAllDistributors().clear(); // Clear existing distributors
             distributorDAO.getAllDistributors().addAll(loadedDistributors); // Add loaded distributors
             System.out.println("Distributors loaded from file: " + filename);
+            determineNextProductId(loadedDistributors);
             return loadedDistributors;
         } catch (IOException | ClassNotFoundException e) {
             System.err.println("Error loading distributors from file: " + e.getMessage());
             return null;
         }
+    }
+
+    private static void determineNextProductId(List<Distributor> distributors) {
+
+        int maxProductId = 0;
+        for (Distributor distributor : distributors) {
+            List<Product> products = distributor.getProducts();
+            for (Product product : products) {
+                if (product.getProductId() > maxProductId) {
+                    maxProductId = product.getProductId();
+                }
+            }
+        }
+        Product.setNextProductId(maxProductId + 1);
     }
 
 

@@ -1,6 +1,7 @@
 import model.Admin;
 import model.Distributor;
 import model.Shop;
+import model.User;
 import service.AdminService;
 import service.DistributorService;
 import service.ProductService;
@@ -30,7 +31,31 @@ public class Application {
             System.out.println("Command received: " + command);
             switch(command){
                 case "user":
-                    userMenu();
+                    userMenu:
+                    while (true) {
+                        userMenu();
+                        User user;
+                        String userCommand = scanner.nextLine().toLowerCase();
+                        System.out.println("Command received: " + userCommand);
+                        switch (userCommand) {
+                            case "create":
+                                user = userService.addUser(scanner);
+                                userPanel(user, scanner, userService);
+                                break;
+                            case "enter":
+                                user = userService.enterUser(scanner);
+                                userPanel(user, scanner, userService);
+                                break;
+                            case "read":
+                                userService.readUsers();
+                                break;
+                            case "quit":
+                                System.out.println("Exiting user");
+                                break userMenu;
+                            default:
+                                System.out.println("Wrong command");
+                        }
+                    }
                     break;
                 case "admin":
                     adminMenu:
@@ -102,15 +127,59 @@ public class Application {
 
     }
 
+    private static void userPanel(User user, Scanner scanner, UserService userService) {
+        while (true) {
+            userPanelMenu();
+            String command = scanner.nextLine().toLowerCase();
+            switch (command) {
+                case "read":
+                    Shop.getInstance().readProducts();
+                    break;
+                case "buy":
+                    userService.buyItem(user, scanner);
+                    break;
+                case "update":
+                    userService.updateUser(user, scanner);
+                    break;
+                case "add":
+                    userService.addBalance(user, scanner);
+                    break;
+                case "delete":
+                    userService.deleteUser(user.getUserId());
+                    return;
+                case "wishlist":
+                    userService.readWishlist(user, scanner);
+                    break;
+                case "quit":
+                    System.out.println("Exiting user panel.");
+                    return;
+                default:
+                    System.out.println("Wrong command");
+            }
+        }
+    }
+
+    private static void userPanelMenu() {
+        System.out.println("Available commands:");
+        System.out.println("read - Read all products");
+        System.out.println("buy - Buy product");
+        System.out.println("update - Update user's info");
+        System.out.println("add - Add balance");
+        System.out.println("delete - Delete user");
+        System.out.println("wishlist - Read wishlist");
+        System.out.println("quit");
+    }
+
     private static void adminPanel(Admin admin, Scanner scanner, AdminService adminService, DistributorService distributorService) {
         while (true) {
             adminPanelMenu();
             String command = scanner.nextLine().toLowerCase();
             switch (command) {
                 case "read":
-                    adminService.readProducts();
+                    Shop.getInstance().readProducts();
                     break;
                 case "restock":
+                    distributorService.loadDistributorsFromFile("distributor_data.txt");
                     adminService.restockItem(distributorService, scanner);
                     break;
                 case "updatep":
@@ -155,18 +224,23 @@ public class Application {
                     break;
                 case "create":
                     distributorService.addProductToDistributor(distributor, scanner);
+                    distributorService.saveDistributorsToFile(distributorService.getAllDistributors(), "distributor_data.txt");
                     break;
                 case "updatep":
                     distributorService.updateProduct(distributor, scanner);
+                    distributorService.saveDistributorsToFile(distributorService.getAllDistributors(), "distributor_data.txt");
                     break;
                 case "updated":
                     distributorService.updateDistributor(distributor, scanner);
+                    distributorService.saveDistributorsToFile(distributorService.getAllDistributors(), "distributor_data.txt");
                     break;
                 case "deletep":
                     distributorService.deleteProduct(distributor, scanner);
+                    distributorService.saveDistributorsToFile(distributorService.getAllDistributors(), "distributor_data.txt");
                     break;
                 case "deleted":
                     distributorService.deleteDistributor(distributor);
+                    distributorService.saveDistributorsToFile(distributorService.getAllDistributors(), "distributor_data.txt");
                     break;
                 case "quit":
                     System.out.println("Exiting");
@@ -206,6 +280,11 @@ public class Application {
     }
 
     private static void userMenu() {
+        System.out.println("Available commands:");
+        System.out.println("create - Create new user");
+        System.out.println("enter - Enter the user panel");
+        System.out.println("read - Read all users");
+        System.out.println("quit");
     }
 
     private static void menu() {

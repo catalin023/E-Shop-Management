@@ -1,9 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class WishList {
+public class WishList implements Serializable {
     private Map<Product, Integer> products;
 
     public WishList() {
