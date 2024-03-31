@@ -1,4 +1,4 @@
-package Application;
+package application;
 
 import model.Admin;
 import model.Shop;
