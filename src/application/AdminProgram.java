@@ -58,6 +58,7 @@ public class AdminProgram {
             switch (command) {
                 case "read":
                     Shop.getInstance().loadDataFromFile("data.txt");
+                    System.out.println("Shop balance " + Shop.getInstance().getBalance());
                     Shop.getInstance().readProducts();
                     break;
                 case "restock":

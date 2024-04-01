@@ -16,6 +16,12 @@ public class ShopProduct extends Product{
         this.quantity = quantity;
     }
 
+    public ShopProduct(int productId, String name, String category, int priceBuy, int priceSell, int quantity) {
+        super(productId, name, category, priceBuy);
+        this.priceSell = priceSell;
+        this.quantity = quantity;
+    }
+
     public int getPriceSell() {
         return priceSell;
     }

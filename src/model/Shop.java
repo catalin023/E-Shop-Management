@@ -8,7 +8,7 @@ public class Shop {
     private List<ShopProduct> products;
     private List<Admin> admins;
     private List<User> users;
-    private float balance;
+    private float balance = 10000;
 
     private Shop() {
         this.products = new ArrayList<>();

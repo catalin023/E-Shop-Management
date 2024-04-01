@@ -6,6 +6,7 @@ import model.*;
 import model.User;
 
 import java.io.*;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -98,12 +99,30 @@ public class UserService {
     }
 
     public void buyItem(User user, Scanner scanner) {
-        Shop.getInstance().readProducts();
+        System.out.println("View all/phone/TV/laptop/price");
+        String command = scanner.nextLine();
+        List<ShopProduct> products;
+        switch (command){
+            case "all":
+                products = Shop.getInstance().getProducts();
+                break;
+            case "price":
+                products = Shop.getInstance().getProducts();
+                products.sort(Comparator.comparingInt(ShopProduct::getPriceSell));
+                break;
+            default:
+                products = Shop.getInstance().filterProductsByCategory(command);
+                break;
+        }
+
+        System.out.println("List of Products:");
+        for (int i = 0; i < products.size(); i++) {
+            System.out.println((i + 1) + ". " + products.get(i).toString());
+        }
         System.out.println("Enter the number of the product to buy:");
         int choice = scanner.nextInt();
         scanner.nextLine();
 
-        List<ShopProduct> products = Shop.getInstance().getProducts();
         if (choice < 1 || choice > products.size()) {
             System.out.println("Invalid choice.");
             return;

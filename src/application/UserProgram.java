@@ -24,6 +24,7 @@ public class UserProgram {
             switch (userCommand) {
                 case "create":
                     user = userService.addUser(scanner);
+                    userService.saveUsersToFile(userService.getAllUsers(), "user_data.txt");
                     userPanel(user, scanner, userService);
                     break;
                 case "enter":
@@ -31,6 +32,7 @@ public class UserProgram {
                     userPanel(user, scanner, userService);
                     break;
                 case "read":
+                    userService.loadUsersFromFile("user_data.txt");
                     userService.readUsers();
                     break;
                 case "quit":
@@ -58,18 +60,23 @@ public class UserProgram {
                     Shop.getInstance().loadDataFromFile("data.txt");
                     userService.buyItem(user, scanner);
                     Shop.getInstance().saveDataToFile("data.txt");
+                    userService.saveUsersToFile(userService.getAllUsers(), "user_data.txt");
                     break;
                 case "update":
                     userService.updateUser(user, scanner);
+                    userService.saveUsersToFile(userService.getAllUsers(), "user_data.txt");
                     break;
                 case "add":
                     userService.addBalance(user, scanner);
+                    userService.saveUsersToFile(userService.getAllUsers(), "user_data.txt");
                     break;
                 case "delete":
                     userService.deleteUser(user.getUserId());
+                    userService.saveUsersToFile(userService.getAllUsers(), "user_data.txt");
                     return;
                 case "wishlist":
                     userService.readWishlist(user, scanner);
+                    userService.saveUsersToFile(userService.getAllUsers(), "user_data.txt");
                     break;
                 case "quit":
                     System.out.println("Exiting user panel.");
