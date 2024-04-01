@@ -103,20 +103,8 @@ public class DistributorService {
             return;
         }
 
-        System.out.println("Products for " + distributor.getName() + ":");
-        for (int i = 0; i < products.size(); i++) {
-            System.out.println((i + 1) + ". " + products.get(i).toString());
-        }
-
-        System.out.println("Enter the number of the product to delete:");
-        int choice = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
-        if (choice < 1 || choice > products.size()) {
-            System.out.println("Invalid choice.");
-            return;
-        }
-
-        Product productToDelete = products.remove(choice - 1);
+        Product productToDelete = getProductFromDistributor(products, scanner);
+        products.remove(productToDelete);
         System.out.println("Product deleted: " + productToDelete.toString());
     }
 
@@ -128,20 +116,7 @@ public class DistributorService {
             return;
         }
 
-        System.out.println("Products for " + distributor.getName() + ":");
-        for (int i = 0; i < products.size(); i++) {
-            System.out.println((i + 1) + ". " + products.get(i).toString());
-        }
-
-        System.out.println("Enter the number of the product to update:");
-        int choice = scanner.nextInt();
-        scanner.nextLine();
-        if (choice < 1 || choice > products.size()) {
-            System.out.println("Invalid choice.");
-            return;
-        }
-
-        Product productToUpdate = products.get(choice - 1);
+        Product productToUpdate = getProductFromDistributor(products, scanner);
         System.out.println("Enter the new details for the product:");
 
         System.out.print("New name: ");
@@ -154,6 +129,22 @@ public class DistributorService {
         productToUpdate.setPriceBuy(newPrice);
 
         System.out.println("Product updated: " + productToUpdate.toString());
+    }
+
+    public Product getProductFromDistributor(List<Product> products, Scanner scanner){
+        for (int i = 0; i < products.size(); i++) {
+            System.out.println((i + 1) + ". " + products.get(i).toString());
+        }
+
+        System.out.println("Enter the number of the product to update:");
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+        if (choice < 1 || choice > products.size()) {
+            System.out.println("Invalid choice.");
+            return null;
+        }
+
+        return products.get(choice - 1);
     }
 
     public void saveDistributorsToFile(List<Distributor> distributors, String filename) {

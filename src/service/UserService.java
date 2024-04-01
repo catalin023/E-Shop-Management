@@ -99,21 +99,7 @@ public class UserService {
     }
 
     public void buyItem(User user, Scanner scanner) {
-        System.out.println("View all/phone/TV/laptop/price");
-        String command = scanner.nextLine();
-        List<ShopProduct> products;
-        switch (command){
-            case "all":
-                products = Shop.getInstance().getProducts();
-                break;
-            case "price":
-                products = Shop.getInstance().getProducts();
-                products.sort(Comparator.comparingInt(ShopProduct::getPriceSell));
-                break;
-            default:
-                products = Shop.getInstance().filterProductsByCategory(command);
-                break;
-        }
+        List<ShopProduct> products = viewProducts(scanner);
 
         System.out.println("List of Products:");
         for (int i = 0; i < products.size(); i++) {
@@ -137,33 +123,64 @@ public class UserService {
         Shop.getInstance().buyItem(productToBuy, quantity, user, scanner);
     }
 
+    public List<ShopProduct> viewProducts(Scanner scanner){
+        System.out.println("View all/phone/TV/laptop/price");
+        String command = scanner.nextLine();
+        List<ShopProduct> products;
+        switch (command){
+            case "all":
+                products = Shop.getInstance().getProducts();
+                break;
+            case "price":
+                products = Shop.getInstance().getProducts();
+                products.sort(Comparator.comparingInt(ShopProduct::getPriceSell));
+                break;
+            default:
+                products = Shop.getInstance().filterProductsByCategory(command);
+                break;
+        }
+        return products;
+    }
+
     public void updateUser(User user, Scanner scanner) {
         System.out.println("Do you want to update the name? (yes/no)");
         String updateName = scanner.nextLine().toLowerCase();
         if (updateName.equals("yes")) {
-            System.out.println("Enter new name:");
-            String newName = scanner.nextLine();
-            user.setName(newName);
-            System.out.println("Name updated successfully.");
+            updateName(user, scanner);
         }
 
         System.out.println("Do you want to update the email? (yes/no)");
         String updateEmail = scanner.nextLine().toLowerCase();
         if (updateEmail.equals("yes")) {
-            System.out.println("Enter new email:");
-            String newEmail = scanner.nextLine();
-            user.setEmail(newEmail);
-            System.out.println("Email updated successfully.");
+            updateEmail(user, scanner);
         }
 
         System.out.println("Do you want to update the password? (yes/no)");
         String updatePassword = scanner.nextLine().toLowerCase();
         if (updatePassword.equals("yes")) {
-            System.out.println("Enter new password:");
-            String newPassword = scanner.nextLine();
-            user.setPassword(newPassword);
-            System.out.println("Password updated successfully.");
+            updatePassword(user, scanner);
         }
+    }
+
+    public void updateName(User user, Scanner scanner){
+        System.out.println("Enter new name:");
+        String newName = scanner.nextLine();
+        user.setName(newName);
+        System.out.println("Name updated successfully.");
+    }
+
+    public void updateEmail(User user, Scanner scanner){
+        System.out.println("Enter new email:");
+        String newEmail = scanner.nextLine();
+        user.setEmail(newEmail);
+        System.out.println("Email updated successfully.");
+    }
+
+    public void updatePassword(User user, Scanner scanner){
+        System.out.println("Enter new password:");
+        String newPassword = scanner.nextLine();
+        user.setPassword(newPassword);
+        System.out.println("Password updated successfully.");
     }
 
 

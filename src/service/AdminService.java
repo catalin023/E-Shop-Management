@@ -80,7 +80,6 @@ public class AdminService {
         int choice = scanner.nextInt();
         scanner.nextLine(); // Consume newline
 
-        // Assuming you have a method to get all products from a data source
         List<ShopProduct> products = Shop.getInstance().getProducts();
         if (choice < 1 || choice > products.size()) {
             System.out.println("Invalid choice.");
@@ -103,7 +102,6 @@ public class AdminService {
         int choice = scanner.nextInt();
         scanner.nextLine();
 
-        // Assuming you have a method to get all products from a data source
         List<ShopProduct> products = Shop.getInstance().getProducts();
         if (choice < 1 || choice > products.size()) {
             System.out.println("Invalid choice.");
@@ -115,6 +113,24 @@ public class AdminService {
     }
 
     public void restockItem(DistributorService distributorService, Scanner scanner) {
+        Distributor distributorRestockFrom = getDistributorToRestock(distributorService, scanner);
+        if (distributorRestockFrom == null){
+            return;
+        }
+
+        Product productToRestock = getProductToRestock(distributorRestockFrom.getProducts(), scanner);
+        if (productToRestock == null){
+            return;
+        }
+
+        System.out.println("Enter the quantity to restock:");
+        int quantity = scanner.nextInt();
+        scanner.nextLine();
+
+        restockItemInShop(productToRestock, quantity, scanner);
+    }
+
+    public Distributor getDistributorToRestock(DistributorService distributorService, Scanner scanner){
         distributorService.readDistributors();
 
         System.out.println("Enter the number of the distributor to restock from:");
@@ -124,31 +140,30 @@ public class AdminService {
         List<Distributor> distributors = distributorService.getAllDistributors();
         if (choice < 1 || choice > distributors.size()) {
             System.out.println("Invalid choice.");
-            return;
+            return null;
         }
 
-        Distributor distributorRestockFrom = distributors.get(choice - 1);
+        return distributors.get(choice - 1);
+    }
 
-        List<Product> products = distributorRestockFrom.getProducts();
+    public Product getProductToRestock(List<Product> products, Scanner scanner){
         for (int i = 0; i < products.size(); i++) {
             System.out.println((i + 1) + ". " + products.get(i).toString());
         }
 
         System.out.println("Enter the number of the product to restock:");
-        choice = scanner.nextInt();
+        int choice = scanner.nextInt();
         scanner.nextLine();
 
         if (choice < 1 || choice > products.size()) {
             System.out.println("Invalid choice.");
-            return;
+            return null;
         }
 
-        Product productToRestock = products.get(choice - 1);
+        return products.get(choice - 1);
+    }
 
-        System.out.println("Enter the quantity to restock:");
-        int quantity = scanner.nextInt();
-        scanner.nextLine();
-
+    public void restockItemInShop(Product productToRestock, int quantity, Scanner scanner){
         ShopProduct productInShop = Shop.getInstance().getProductById(productToRestock.getProductId());
 
         if (productInShop == null){
@@ -165,33 +180,46 @@ public class AdminService {
         Shop.getInstance().setBalance(Shop.getInstance().getBalance()-quantity*productToRestock.getPriceBuy());
     }
 
+
     public void updateAdmin(Admin admin, Scanner scanner) {
         System.out.println("Do you want to update the name? (yes/no)");
         String updateName = scanner.nextLine().toLowerCase();
         if (updateName.equals("yes")) {
-            System.out.println("Enter new name:");
-            String newName = scanner.nextLine();
-            admin.setName(newName);
-            System.out.println("Name updated successfully.");
+            updateName(admin, scanner);
         }
 
         System.out.println("Do you want to update the email? (yes/no)");
         String updateEmail = scanner.nextLine().toLowerCase();
         if (updateEmail.equals("yes")) {
-            System.out.println("Enter new email:");
-            String newEmail = scanner.nextLine();
-            admin.setEmail(newEmail);
-            System.out.println("Email updated successfully.");
+            updateEmail(admin, scanner);
         }
 
         System.out.println("Do you want to update the password? (yes/no)");
         String updatePassword = scanner.nextLine().toLowerCase();
         if (updatePassword.equals("yes")) {
-            System.out.println("Enter new password:");
-            String newPassword = scanner.nextLine();
-            admin.setPassword(newPassword);
-            System.out.println("Password updated successfully.");
+            updatePassword(admin, scanner);
         }
+    }
+
+    public void updateName(Admin admin, Scanner scanner){
+        System.out.println("Enter new name:");
+        String newName = scanner.nextLine();
+        admin.setName(newName);
+        System.out.println("Name updated successfully.");
+    }
+
+    public void updateEmail(Admin admin, Scanner scanner){
+        System.out.println("Enter new email:");
+        String newEmail = scanner.nextLine();
+        admin.setEmail(newEmail);
+        System.out.println("Email updated successfully.");
+    }
+
+    public void updatePassword(Admin admin, Scanner scanner){
+        System.out.println("Enter new password:");
+        String newPassword = scanner.nextLine();
+        admin.setPassword(newPassword);
+        System.out.println("Password updated successfully.");
     }
 
 

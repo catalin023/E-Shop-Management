@@ -23,6 +23,7 @@ public class DistributorProgram {
             switch (distributorCommand) {
                 case "create":
                     distributor = distributorService.addDistributor(scanner);
+                    distributorService.saveDistributorsToFile(distributorService.getAllDistributors(), "distributor_data.txt");
                     distributorPanel(distributor, scanner, distributorService);
                     break;
                 case "enter":
@@ -30,6 +31,7 @@ public class DistributorProgram {
                     distributorPanel(distributor, scanner, distributorService);
                     break;
                 case "read":
+                    distributorService.loadDistributorsFromFile("distributor_data.txt");
                     distributorService.readDistributors();
                     break;
                 case "quit":
@@ -49,6 +51,7 @@ public class DistributorProgram {
             String command = scanner.nextLine().toLowerCase();
             switch (command) {
                 case "read":
+                    distributorService.loadDistributorsFromFile("distributor_data.txt");
                     distributorService.readProducts(distributor, scanner);
                     break;
                 case "create":
@@ -56,18 +59,22 @@ public class DistributorProgram {
                     distributorService.saveDistributorsToFile(distributorService.getAllDistributors(), "distributor_data.txt");
                     break;
                 case "updatep":
+                    distributorService.loadDistributorsFromFile("distributor_data.txt");
                     distributorService.updateProduct(distributor, scanner);
                     distributorService.saveDistributorsToFile(distributorService.getAllDistributors(), "distributor_data.txt");
                     break;
                 case "updated":
+                    distributorService.loadDistributorsFromFile("distributor_data.txt");
                     distributorService.updateDistributor(distributor, scanner);
                     distributorService.saveDistributorsToFile(distributorService.getAllDistributors(), "distributor_data.txt");
                     break;
                 case "deletep":
+                    distributorService.loadDistributorsFromFile("distributor_data.txt");
                     distributorService.deleteProduct(distributor, scanner);
                     distributorService.saveDistributorsToFile(distributorService.getAllDistributors(), "distributor_data.txt");
                     break;
                 case "deleted":
+                    distributorService.loadDistributorsFromFile("distributor_data.txt");
                     distributorService.deleteDistributor(distributor);
                     distributorService.saveDistributorsToFile(distributorService.getAllDistributors(), "distributor_data.txt");
                     break;
