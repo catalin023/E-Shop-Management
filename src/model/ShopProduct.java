@@ -11,13 +11,7 @@ public class ShopProduct extends Product{
     }
 
     public ShopProduct(Product product, int priceSell, int quantity) {
-        super(product.getName(), product.getCategory(), product.getPriceBuy());
-        this.priceSell = priceSell;
-        this.quantity = quantity;
-    }
-
-    public ShopProduct(int productId, String name, String category, int priceBuy, int priceSell, int quantity) {
-        super(productId, name, category, priceBuy);
+        super(product.getProductId(), product.getName(), product.getCategory(), product.getPriceBuy());
         this.priceSell = priceSell;
         this.quantity = quantity;
     }

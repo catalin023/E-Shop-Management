@@ -156,7 +156,7 @@ public class AdminService {
             int priceSell = scanner.nextInt();
             scanner.nextLine();
 
-            ShopProduct product = new ShopProduct(productToRestock.getProductId(), productToRestock.getName(), productToRestock.getCategory(), productToRestock.getPriceBuy(), priceSell, quantity);
+            ShopProduct product = new ShopProduct(productToRestock, priceSell, quantity);
             Shop.getInstance().addProduct(product);
         }
         else {

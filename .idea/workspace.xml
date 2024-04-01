@@ -4,19 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79059579-1c12-413d-b20b-a9c2c7701c8f" name="Changes" comment="Application">
+    <list default="true" id="79059579-1c12-413d-b20b-a9c2c7701c8f" name="Changes" comment="some changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin_data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/admin_data.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/distributor_data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/distributor_data.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/application/AdminProgram.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/AdminProgram.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/application/UserProgram.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/UserProgram.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Shop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Shop.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/ShopProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/ShopProduct.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/service/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/AdminService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/user_data.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +64,7 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.AdminProgram">
+  <component name="RunManager" selected="Application.UserProgram">
     <configuration name="AdminProgram" type="Application" factoryName="Application" singleton="false">
       <option name="MAIN_CLASS_NAME" value="application.AdminProgram" />
       <module name="E-Shop Managment" />
@@ -119,7 +111,7 @@
       <workItem from="1711733730460" duration="8723000" />
       <workItem from="1711794418975" duration="21557000" />
       <workItem from="1711883703894" duration="14909000" />
-      <workItem from="1711955247590" duration="2514000" />
+      <workItem from="1711955247590" duration="3267000" />
     </task>
     <task id="LOCAL-00001" summary="create_project">
       <option name="closed" value="true" />
@@ -225,7 +217,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711910174213</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="some changes">
+      <option name="closed" value="true" />
+      <created>1711958049342</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1711958049342</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -253,6 +253,7 @@
     <MESSAGE value="Distributor and Admin Service" />
     <MESSAGE value="User Service" />
     <MESSAGE value="Application" />
-    <option name="LAST_COMMIT_MESSAGE" value="Application" />
+    <MESSAGE value="some changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="some changes" />
   </component>
 </project>
