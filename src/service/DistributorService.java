@@ -45,7 +45,6 @@ public class DistributorService {
     }
 
     public void readDistributors() {
-        // Implement logic to read all distributors using Scanner input
         List<Distributor> distributors = distributorDAO.getAllDistributors();
         System.out.println("List of Distributors:");
         for (int i = 0; i < distributors.size(); i++) {
@@ -136,7 +135,7 @@ public class DistributorService {
 
         System.out.println("Enter the number of the product to update:");
         int choice = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
         if (choice < 1 || choice > products.size()) {
             System.out.println("Invalid choice.");
             return;
@@ -151,10 +150,8 @@ public class DistributorService {
 
         System.out.print("New price: ");
         int newPrice = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
         productToUpdate.setPriceBuy(newPrice);
-
-        // You can add more fields to update here based on your Product class
 
         System.out.println("Product updated: " + productToUpdate.toString());
     }

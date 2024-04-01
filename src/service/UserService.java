@@ -170,7 +170,7 @@ public class UserService {
     public void addBalance(User user, Scanner scanner) {
         System.out.println("Enter amount to add:");
         int amount = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
         user.addBalance(amount);
         System.out.println("Balance added successfully. Current balance: " + user.getBalance());
     }
