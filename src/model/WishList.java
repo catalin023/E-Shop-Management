@@ -19,10 +19,6 @@ public class WishList implements Serializable {
         }
     }
 
-    public void removeProduct(Product product) {
-        products.remove(product);
-    }
-
     public Map<Product, Integer> getProducts() {
         return products;
     }

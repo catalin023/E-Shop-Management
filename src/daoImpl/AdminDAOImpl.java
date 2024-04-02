@@ -2,21 +2,27 @@ package daoImpl;
 
 import dao.AdminDAO;
 import model.Admin;
-import model.User;
 
+import java.io.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class AdminDAOImpl implements AdminDAO {
     private List<Admin> admins = new ArrayList<>();
+    private String filename = "dataFiles/admin_data.txt";
+
+    public AdminDAOImpl() {
+        loadAdminsFromFile();
+    }
     @Override
     public List<Admin> getAllAdmins() {
+        loadAdminsFromFile();
         return admins;
     }
 
     @Override
     public Admin getAdminById(int adminId) {
+        loadAdminsFromFile();
         for (Admin admin : admins){
             if (admin.getAdminId() == adminId){
                 return admin;
@@ -26,8 +32,9 @@ public class AdminDAOImpl implements AdminDAO {
     }
 
     public Admin getAdminByEmail(String email) {
+        loadAdminsFromFile();
         for (Admin admin : admins){
-            if (admin.getEmail() == email){
+            if (admin.getEmail().equals(email)){
                 return admin;
             }
         }
@@ -37,6 +44,7 @@ public class AdminDAOImpl implements AdminDAO {
     @Override
     public void addAdmin(Admin admin) {
         admins.add(admin);
+        saveAdminsToFile();
     }
 
     @Override
@@ -46,6 +54,7 @@ public class AdminDAOImpl implements AdminDAO {
                 admin.setName(newAdmin.getName());
                 admin.setEmail(newAdmin.getEmail());
                 admin.setPassword(newAdmin.getPassword());
+                saveAdminsToFile();
                 return;
             }
         }
@@ -53,13 +62,34 @@ public class AdminDAOImpl implements AdminDAO {
 
     @Override
     public void deleteAdmin(int adminId) {
-        Iterator<Admin> iterator = admins.iterator();
-        while (iterator.hasNext()) {
-            Admin admin = iterator.next();
-            if (admin.getAdminId() == adminId) {
-                iterator.remove();
+        for (Admin admin : admins){
+            if (admin.getAdminId() == adminId){
+                admins.remove(admin);
+                saveAdminsToFile();
                 return;
             }
         }
     }
+
+
+    public void saveAdminsToFile() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
+            oos.writeObject(admins);
+            System.out.println("Admins saved to file: " + filename);
+        } catch (IOException e) {
+            System.err.println("Error saving admins to file: " + e.getMessage());
+        }
+    }
+
+    public void loadAdminsFromFile() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
+            admins = (List<Admin>) ois.readObject();
+            System.out.println("Admins loaded from file: " + filename);
+            return;
+        } catch (IOException | ClassNotFoundException e) {
+            System.err.println("Error loading admins from file: " + e.getMessage());
+            return;
+        }
+    }
+
 }

@@ -1,17 +1,19 @@
 package model;
 
-public class ShopProduct extends Product{
+import java.io.Serializable;
+
+public class ShopProduct extends Product implements Serializable {
     private int priceSell;
     private int quantity;
 
-    public ShopProduct(String nume, String category, int priceBuy, int priceSell, int quantity) {
-        super(nume, category, priceBuy);
+    public ShopProduct(int productId, int distributorId, String nume, String category, int priceBuy, int priceSell, int quantity) {
+        super(productId, distributorId, nume, category, priceBuy);
         this.priceSell = priceSell;
         this.quantity = quantity;
     }
 
     public ShopProduct(Product product, int priceSell, int quantity) {
-        super(product.getProductId(), product.getName(), product.getCategory(), product.getPriceBuy());
+        super(product.getProductId(), product.getDistributorId(), product.getName(), product.getCategory(), product.getPriceBuy());
         this.priceSell = priceSell;
         this.quantity = quantity;
     }

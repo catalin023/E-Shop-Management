@@ -1,10 +1,5 @@
-import model.Admin;
-import model.Distributor;
-import model.Shop;
-import model.User;
-import service.AdminService;
-import service.DistributorService;
-import service.UserService;
+import model.*;
+import service.*;
 
 import java.util.Scanner;
 
@@ -15,13 +10,9 @@ public class Application {
         AdminService adminService = new AdminService();
         UserService userService = new UserService();
         DistributorService distributorService = new DistributorService();
-
-        Shop shop = Shop.getInstance();
-
-        shop.loadDataFromFile("data.txt");
-        distributorService.loadDistributorsFromFile("distributor_data.txt");
-        userService.loadUsersFromFile("user_data.txt");
-        adminService.loadAdminsFromFile("admin_data.txt");
+        ProductService productService = new ProductService();
+        ShopProductService shopProductService = new ShopProductService();
+        ShopService shopService = new ShopService();
 
         while (true) {
             menu();
@@ -39,15 +30,15 @@ public class Application {
                         switch (userCommand) {
                             case "create":
                                 user = userService.addUser(scanner);
-                                userService.saveUsersToFile(userService.getAllUsers(), "user_data.txt");
-                                userPanel(user, scanner, userService);
+                                userPanel(user, scanner, userService, shopProductService);
                                 break;
                             case "enter":
                                 user = userService.enterUser(scanner);
-                                userPanel(user, scanner, userService);
+                                if (user != null) {
+                                    userPanel(user, scanner, userService, shopProductService);
+                                }
                                 break;
                             case "read":
-                                userService.loadUsersFromFile("user_data.txt");
                                 userService.readUsers();
                                 break;
                             case "quit":
@@ -68,15 +59,15 @@ public class Application {
                         switch (adminCommand) {
                             case "create":
                                 admin = adminService.addAdmin(scanner);
-                                adminService.saveAdminsToFile(adminService.getAllAdmins(), "admin_data.txt");
-                                adminPanel(admin, scanner, adminService, distributorService);
+                                adminPanel(admin, scanner, adminService, distributorService, productService, shopProductService);
                                 break;
                             case "enter":
                                 admin = adminService.enterAdmin(scanner);
-                                adminPanel(admin, scanner, adminService, distributorService);
+                                if (admin != null) {
+                                    adminPanel(admin, scanner, adminService, distributorService, productService, shopProductService);
+                                }
                                 break;
                             case "read":
-                                adminService.loadAdminsFromFile("admin_data.txt");
                                 adminService.readAdmins();
                                 break;
                             case "quit":
@@ -97,15 +88,15 @@ public class Application {
                         switch (distributorCommand) {
                             case "create":
                                 distributor = distributorService.addDistributor(scanner);
-                                distributorService.saveDistributorsToFile(distributorService.getAllDistributors(), "distributor_data.txt");
-                                distributorPanel(distributor, scanner, distributorService);
+                                distributorPanel(distributor, scanner, distributorService, productService);
                                 break;
                             case "enter":
                                 distributor = distributorService.enterDistributor(scanner);
-                                distributorPanel(distributor, scanner, distributorService);
+                                if (distributor != null) {
+                                    distributorPanel(distributor, scanner, distributorService, productService);
+                                }
                                 break;
                             case "read":
-                                distributorService.loadDistributorsFromFile("distributor_data.txt");
                                 distributorService.readDistributors();
                                 break;
                             case "quit":
@@ -122,46 +113,33 @@ public class Application {
                 default:
                     System.out.println("Wrong command");
             }
-
-            shop.saveDataToFile("data.txt");
-            distributorService.saveDistributorsToFile(distributorService.getAllDistributors(), "distributor_data.txt");
-            adminService.saveAdminsToFile(adminService.getAllAdmins(), "admin_data.txt");
-            userService.saveUsersToFile(userService.getAllUsers(), "user_data.txt");
         }
 
 
     }
 
-    private static void userPanel(User user, Scanner scanner, UserService userService) {
+    private static void userPanel(User user, Scanner scanner, UserService userService, ShopProductService shopProductService) {
         while (true) {
             userPanelMenu();
             String command = scanner.nextLine().toLowerCase();
             switch (command) {
                 case "read":
-                    Shop.getInstance().loadDataFromFile("data.txt");
-                    Shop.getInstance().readProducts();
+                    shopProductService.readProducts();
                     break;
                 case "buy":
-                    Shop.getInstance().loadDataFromFile("data.txt");
-                    userService.buyItem(user, scanner);
-                    Shop.getInstance().saveDataToFile("data.txt");
-                    userService.saveUsersToFile(userService.getAllUsers(), "user_data.txt");
+                    userService.buyItem(user, shopProductService.chooseItem(scanner), scanner);
                     break;
                 case "update":
                     userService.updateUser(user, scanner);
-                    userService.saveUsersToFile(userService.getAllUsers(), "user_data.txt");
                     break;
                 case "add":
                     userService.addBalance(user, scanner);
-                    userService.saveUsersToFile(userService.getAllUsers(), "user_data.txt");
                     break;
                 case "delete":
                     userService.deleteUser(user.getUserId());
-                    userService.saveUsersToFile(userService.getAllUsers(), "user_data.txt");
                     return;
                 case "wishlist":
                     userService.readWishlist(user, scanner);
-                    userService.saveUsersToFile(userService.getAllUsers(), "user_data.txt");
                     break;
                 case "quit":
                     System.out.println("Exiting user panel.");
@@ -183,39 +161,32 @@ public class Application {
         System.out.println("quit");
     }
 
-    private static void adminPanel(Admin admin, Scanner scanner, AdminService adminService, DistributorService distributorService) {
+    private static void adminPanel(Admin admin, Scanner scanner, AdminService adminService, DistributorService distributorService, ProductService productService, ShopProductService shopProductService) {
         while (true) {
             adminPanelMenu();
             String command = scanner.nextLine().toLowerCase();
             switch (command) {
                 case "read":
-                    Shop.getInstance().loadDataFromFile("data.txt");
                     System.out.println("Shop balance " + Shop.getInstance().getBalance());
-                    Shop.getInstance().readProducts();
+                    shopProductService.readProducts();
                     break;
                 case "restock":
-                    distributorService.loadDistributorsFromFile("distributor_data.txt");
-                    adminService.restockItem(distributorService, scanner);
-                    Shop.getInstance().saveDataToFile("data.txt");
+                    int distributorId = distributorService.getDistributorId(scanner);
+                    Product product = productService.getProduct(distributorId, scanner);
+                    shopProductService.restockProduct(product, scanner);
                     break;
                 case "updatep":
-                    Shop.getInstance().loadDataFromFile("data.txt");
-                    adminService.updateProduct(scanner);
-                    Shop.getInstance().saveDataToFile("data.txt");
+                    shopProductService.updatePrice(scanner);
                     break;
                 case "updatea":
                     adminService.updateAdmin(admin, scanner);
-                    adminService.saveAdminsToFile(adminService.getAllAdmins(), "admin_data.txt");
                     break;
                 case "deletep":
-                    Shop.getInstance().loadDataFromFile("data.txt");
-                    adminService.deleteProduct(scanner);
-                    Shop.getInstance().saveDataToFile("data.txt");
+                    shopProductService.deleteProduct(scanner);
                     break;
                 case "deletea":
                     adminService.deleteAdmin(admin.getAdminId());
-                    adminService.saveAdminsToFile(adminService.getAllAdmins(), "admin_data.txt");
-                    break;
+                    return;
                 case "quit":
                     System.out.println("Exiting");
                     return;
@@ -236,39 +207,29 @@ public class Application {
         System.out.println("quit");
     }
 
-    private static void distributorPanel(Distributor distributor, Scanner scanner, DistributorService distributorService) {
+    private static void distributorPanel(Distributor distributor, Scanner scanner, DistributorService distributorService, ProductService productService){
         while (true) {
             distributorPanelMenu();
             String command = scanner.nextLine().toLowerCase();
             switch (command) {
                 case "read":
-                    distributorService.loadDistributorsFromFile("distributor_data.txt");
-                    distributorService.readProducts(distributor, scanner);
+                    productService.readProducts(distributor.getDistributorId());
                     break;
                 case "create":
-                    distributorService.addProductToDistributor(distributor, scanner);
-                    distributorService.saveDistributorsToFile(distributorService.getAllDistributors(), "distributor_data.txt");
+                    distributorService.addProductToDistributor(distributor, productService.createProduct(distributor.getDistributorId(), scanner));
                     break;
                 case "updatep":
-                    distributorService.loadDistributorsFromFile("distributor_data.txt");
-                    distributorService.updateProduct(distributor, scanner);
-                    distributorService.saveDistributorsToFile(distributorService.getAllDistributors(), "distributor_data.txt");
+                    productService.updateProduct(distributor.getDistributorId(), scanner);
                     break;
                 case "updated":
-                    distributorService.loadDistributorsFromFile("distributor_data.txt");
                     distributorService.updateDistributor(distributor, scanner);
-                    distributorService.saveDistributorsToFile(distributorService.getAllDistributors(), "distributor_data.txt");
                     break;
                 case "deletep":
-                    distributorService.loadDistributorsFromFile("distributor_data.txt");
-                    distributorService.deleteProduct(distributor, scanner);
-                    distributorService.saveDistributorsToFile(distributorService.getAllDistributors(), "distributor_data.txt");
+                    productService.updateProduct(distributor.getDistributorId(), scanner);
                     break;
                 case "deleted":
-                    distributorService.loadDistributorsFromFile("distributor_data.txt");
                     distributorService.deleteDistributor(distributor);
-                    distributorService.saveDistributorsToFile(distributorService.getAllDistributors(), "distributor_data.txt");
-                    break;
+                    return;
                 case "quit":
                     System.out.println("Exiting");
                     return;
@@ -322,7 +283,5 @@ public class Application {
         System.out.println("quit");
         System.out.println("Enter command:");
     }
-
-
 
 }

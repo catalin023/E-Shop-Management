@@ -5,23 +5,28 @@ import java.io.Serializable;
 public class Product implements Serializable {
     private static int nextProductId = 1;
     private int productId;
+    private int distributorId;
     private String name;
     private String category;
     private int priceBuy;
 
-    public Product(String nume, String category, int priceBuy) {
+    public Product(int distributorId, String name, String category, int priceBuy) {
         this.productId = nextProductId++;
-        this.name = nume;
+        this.name = name;
         this.category = category;
         this.priceBuy = priceBuy;
-        nextProductId++;
+        this.distributorId = distributorId;
     }
 
-    public Product(int productId, String name, String category, int priceBuy) {
+    public Product(int productId, int distributorId, String name, String category, int priceBuy) {
         this.productId = productId;
         this.name = name;
         this.category = category;
         this.priceBuy = priceBuy;
+        this.distributorId = distributorId;
+        if(productId >= nextProductId){
+            nextProductId = ++productId;
+        }
     }
 
     public int getProductId() {
@@ -30,6 +35,14 @@ public class Product implements Serializable {
 
     public void setProductId(int productId) {
         this.productId = productId;
+    }
+
+    public int getDistributorId() {
+        return distributorId;
+    }
+
+    public void setDistributorId(int distributorId) {
+        this.distributorId = distributorId;
     }
 
     public String getName() {
@@ -64,10 +77,10 @@ public class Product implements Serializable {
     public String toString() {
         return "Product{" +
                 "productId=" + productId +
-                ", nume='" + name + '\'' +
+                ", distributorId=" + distributorId +
+                ", name='" + name + '\'' +
                 ", category='" + category + '\'' +
                 ", priceBuy=" + priceBuy +
                 '}';
     }
-
 }

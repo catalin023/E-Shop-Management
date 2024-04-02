@@ -22,49 +22,32 @@ public class UserService {
         return userDAO.getAllUsers();
     }
 
-    public User getUserById(int userId) {
-        return userDAO.getUserById(userId);
-    }
-
-    public void updateUser(User user) {
-        userDAO.updateUser(user);
-    }
-
     public void deleteUser(int userId) {
         userDAO.deleteUser(userId);
     }
 
-    public void addToWishlist(User user, ShopProduct product, int quantity) {
-        user.addToWishlist(product, quantity);
-    }
 
-    public void viewWishlist(User user) {
-        user.viewWishlist();
-    }
-
-
-
-    public void saveUsersToFile(List<User> users, String filename) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
-            oos.writeObject(users);
-            System.out.println("Users saved to file: " + filename);
-        } catch (IOException e) {
-            System.err.println("Error saving users to file: " + e.getMessage());
-        }
-    }
-
-    public List<User> loadUsersFromFile(String filename) {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
-            List<User> loadedUsers = (List<User>) ois.readObject();
-            userDAO.getAllUsers().clear(); // Clear existing users
-            userDAO.getAllUsers().addAll(loadedUsers); // Add loaded users
-            System.out.println("Users loaded from file: " + filename);
-            return loadedUsers;
-        } catch (IOException | ClassNotFoundException e) {
-            System.err.println("Error loading users from file: " + e.getMessage());
-            return null;
-        }
-    }
+//    public void saveUsersToFile(List<User> users, String filename) {
+//        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
+//            oos.writeObject(users);
+//            System.out.println("Users saved to file: " + filename);
+//        } catch (IOException e) {
+//            System.err.println("Error saving users to file: " + e.getMessage());
+//        }
+//    }
+//
+//    public List<User> loadUsersFromFile(String filename) {
+//        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
+//            List<User> loadedUsers = (List<User>) ois.readObject();
+//            userDAO.getAllUsers().clear(); // Clear existing users
+//            userDAO.getAllUsers().addAll(loadedUsers); // Add loaded users
+//            System.out.println("Users loaded from file: " + filename);
+//            return loadedUsers;
+//        } catch (IOException | ClassNotFoundException e) {
+//            System.err.println("Error loading users from file: " + e.getMessage());
+//            return null;
+//        }
+//    }
 
     public User addUser(Scanner scanner) {
         System.out.println("Enter user name:");
@@ -79,7 +62,7 @@ public class UserService {
     }
 
     public void readUsers() {
-        List<User> users = getAllUsers();
+        List<User> users = userDAO.getAllUsers();
         System.out.println("List of Users:");
         for (User user : users) {
             System.out.println(user.getName());
@@ -94,53 +77,35 @@ public class UserService {
             System.out.println("Welcome, " + user.getName());
         } else {
             System.out.println("User not found.");
+            return null;
         }
         return user;
     }
 
-    public void buyItem(User user, Scanner scanner) {
-        List<ShopProduct> products = viewProducts(scanner);
-
-        System.out.println("List of Products:");
-        for (int i = 0; i < products.size(); i++) {
-            System.out.println((i + 1) + ". " + products.get(i).toString());
-        }
-        System.out.println("Enter the number of the product to buy:");
-        int choice = scanner.nextInt();
-        scanner.nextLine();
-
-        if (choice < 1 || choice > products.size()) {
-            System.out.println("Invalid choice.");
-            return;
-        }
-
-        ShopProduct productToBuy = products.get(choice - 1);
+    public void buyItem(User user, ShopProduct productToBuy, Scanner scanner) {
 
         System.out.println("Enter the quantity to buy:");
         int quantity = scanner.nextInt();
         scanner.nextLine();
 
-        Shop.getInstance().buyItem(productToBuy, quantity, user, scanner);
+        if (productToBuy.getQuantity() >= quantity && user.getBalance() >= (productToBuy.getPriceSell() * quantity)) {
+            productToBuy.setQuantity(productToBuy.getQuantity() - quantity);
+            deductBalance(user, productToBuy.getPriceSell() * quantity);
+            Shop.getInstance().setBalance(productToBuy.getPriceSell() * quantity + Shop.getInstance().getBalance());
+        } else {
+            System.out.println("Insufficient quantity or balance.");
+            System.out.println("Do you want to add the product to wishlist?(yes/no)");
+            String addWishList = scanner.nextLine().toLowerCase();
+            if (addWishList.equals("yes")){
+                user.getWishList().addProduct(productToBuy, quantity);
+            }
+            else {
+                return;
+            }
+
+        }
     }
 
-    public List<ShopProduct> viewProducts(Scanner scanner){
-        System.out.println("View all/phone/TV/laptop/price");
-        String command = scanner.nextLine();
-        List<ShopProduct> products;
-        switch (command){
-            case "all":
-                products = Shop.getInstance().getProducts();
-                break;
-            case "price":
-                products = Shop.getInstance().getProducts();
-                products.sort(Comparator.comparingInt(ShopProduct::getPriceSell));
-                break;
-            default:
-                products = Shop.getInstance().filterProductsByCategory(command);
-                break;
-        }
-        return products;
-    }
 
     public void updateUser(User user, Scanner scanner) {
         System.out.println("Do you want to update the name? (yes/no)");
@@ -160,6 +125,7 @@ public class UserService {
         if (updatePassword.equals("yes")) {
             updatePassword(user, scanner);
         }
+        userDAO.updateUser(user);
     }
 
     public void updateName(User user, Scanner scanner){
@@ -188,7 +154,8 @@ public class UserService {
         System.out.println("Enter amount to add:");
         int amount = scanner.nextInt();
         scanner.nextLine();
-        user.addBalance(amount);
+        user.setBalance(user.getBalance() + amount);
+        userDAO.updateUser(user);
         System.out.println("Balance added successfully. Current balance: " + user.getBalance());
     }
 
@@ -207,5 +174,10 @@ public class UserService {
                 index++;
             }
         }
+    }
+
+    public void deductBalance(User user, float balance){
+        user.setBalance(user.getBalance() - balance);
+        userDAO.updateUser(user);
     }
 }

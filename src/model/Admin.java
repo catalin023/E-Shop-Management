@@ -15,6 +15,9 @@ public class Admin  extends Person implements Serializable {
     public Admin(String name, String email, String password, int adminId) {
         super(name, email, password);
         this.adminId = adminId;
+        if(adminId >= nextAdmin){
+            nextAdmin = ++adminId;
+        }
     }
 
     public Admin() {
@@ -39,20 +42,6 @@ public class Admin  extends Person implements Serializable {
                 ", name='" + this.getName() + '\'' +
                 ", email='" + this.getEmail() + '\'' +
                 '}';
-    }
-
-    public void restockItem(ShopProduct product, int quantity) {
-        product.setQuantity(product.getQuantity() + quantity);
-    }
-
-    public void setSellPrice(Product product, int priceSell) {
-        if (product instanceof ShopProduct) {
-            ((ShopProduct) product).setPriceSell(priceSell);
-        }
-    }
-
-    public void addProductToShop(ShopProduct product) {
-        Shop.getInstance().getProducts().add(product);
     }
 
 }

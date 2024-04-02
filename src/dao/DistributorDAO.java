@@ -8,9 +8,10 @@ import java.util.List;
 public interface DistributorDAO {
 
     List<Distributor> getAllDistributors();
+    Distributor getDistributorById(int distributorId);
     Distributor getDistributorByName(String name);
     void addDistributor(Distributor distributor);
     void updateDistributor(Distributor distributor);
-    void deleteDistributor(String name);
-    void addProductToDistributor(String distributorName, Product product);
+    void deleteDistributor(int distributorId);
+    void addProductToDistributor(Distributor distributorId, Product product);
 }
