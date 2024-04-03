@@ -10,21 +10,15 @@ import java.util.List;
 public class ProductDAOImpl implements ProductDAO {
 
     private List<Product> products = new ArrayList<>();
-    private String filename = "dataFiles/product_data.txt";
 
-    public ProductDAOImpl() {
-        loadProductsFromFile();
-    }
 
     @Override
     public List<Product> getAllProducts() {
-        loadProductsFromFile();
         return products;
     }
 
     @Override
     public List<Product> getProductsByDistributorId(int distributorId) {
-        loadProductsFromFile();
         List<Product> result = new ArrayList<>();
         for (Product product : products) {
             if (product.getDistributorId() == distributorId) {
@@ -36,7 +30,6 @@ public class ProductDAOImpl implements ProductDAO {
 
     @Override
     public Product getProductById(int productId) {
-        loadProductsFromFile();
         for (Product product : products) {
             if (product.getProductId() == productId) {
                 return product;
@@ -47,9 +40,7 @@ public class ProductDAOImpl implements ProductDAO {
 
     @Override
     public void addProduct(Product product) {
-        loadProductsFromFile();
         products.add(product);
-        saveProductsToFile();
     }
 
     @Override
@@ -58,7 +49,6 @@ public class ProductDAOImpl implements ProductDAO {
             if (product.getProductId() == newProduct.getProductId()) {
                 product.setName(newProduct.getName());
                 product.setPriceBuy(newProduct.getPriceBuy());
-                saveProductsToFile();
                 return;
             }
         }
@@ -69,25 +59,24 @@ public class ProductDAOImpl implements ProductDAO {
         for (Product product : products) {
             if (product.getProductId() == productId) {
                 products.remove(product);
-                saveProductsToFile();
                 return;
             }
         }
     }
 
 
-    public void saveProductsToFile() {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
-            oos.writeObject(products);
-        } catch (IOException ignored) {
-        }
-    }
-
-    public void loadProductsFromFile() {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
-            products = (List<Product>) ois.readObject();
-        } catch (IOException | ClassNotFoundException ignored) {
-        }
-    }
+//    public void saveProductsToFile() {
+//        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
+//            oos.writeObject(products);
+//        } catch (IOException ignored) {
+//        }
+//    }
+//
+//    public void loadProductsFromFile() {
+//        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
+//            products = (List<Product>) ois.readObject();
+//        } catch (IOException | ClassNotFoundException ignored) {
+//        }
+//    }
 
 }

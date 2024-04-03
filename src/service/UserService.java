@@ -1,5 +1,6 @@
 package service;
 
+import dao.ShopProductDAO;
 import dao.UserDAO;
 import daoImpl.UserDAOImpl;
 import model.*;
@@ -25,29 +26,6 @@ public class UserService {
     public void deleteUser(int userId) {
         userDAO.deleteUser(userId);
     }
-
-
-//    public void saveUsersToFile(List<User> users, String filename) {
-//        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
-//            oos.writeObject(users);
-//            System.out.println("Users saved to file: " + filename);
-//        } catch (IOException e) {
-//            System.err.println("Error saving users to file: " + e.getMessage());
-//        }
-//    }
-//
-//    public List<User> loadUsersFromFile(String filename) {
-//        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
-//            List<User> loadedUsers = (List<User>) ois.readObject();
-//            userDAO.getAllUsers().clear(); // Clear existing users
-//            userDAO.getAllUsers().addAll(loadedUsers); // Add loaded users
-//            System.out.println("Users loaded from file: " + filename);
-//            return loadedUsers;
-//        } catch (IOException | ClassNotFoundException e) {
-//            System.err.println("Error loading users from file: " + e.getMessage());
-//            return null;
-//        }
-//    }
 
     public User addUser(Scanner scanner) {
         System.out.println("Enter user name:");
@@ -82,7 +60,11 @@ public class UserService {
         return user;
     }
 
-    public void buyItem(User user, ShopProduct productToBuy, Scanner scanner) {
+    public void buyItem(User user, ShopProductService shopProductService, Scanner scanner) {
+        ShopProduct productToBuy = shopProductService.chooseItem(scanner);
+        if (productToBuy == null) {
+            return;
+        }
 
         System.out.println("Enter the quantity to buy:");
         int quantity = scanner.nextInt();
@@ -90,6 +72,7 @@ public class UserService {
 
         if (productToBuy.getQuantity() >= quantity && user.getBalance() >= (productToBuy.getPriceSell() * quantity)) {
             productToBuy.setQuantity(productToBuy.getQuantity() - quantity);
+            shopProductService.deductQuantity(productToBuy, quantity);
             deductBalance(user, productToBuy.getPriceSell() * quantity);
             Shop.getInstance().setBalance(productToBuy.getPriceSell() * quantity + Shop.getInstance().getBalance());
         } else {
@@ -99,10 +82,6 @@ public class UserService {
             if (addWishList.equals("yes")){
                 user.getWishList().addProduct(productToBuy, quantity);
             }
-            else {
-                return;
-            }
-
         }
     }
 
@@ -162,13 +141,13 @@ public class UserService {
     public void readWishlist(User user, Scanner scanner) {
         System.out.println("Wishlist:");
 
-        Map<Product, Integer> products = user.getWishList().getProducts();
+        Map<ShopProduct, Integer> products = user.getWishList().getProducts();
         if (products.isEmpty()) {
             System.out.println("Your wishlist is empty.");
         } else {
             int index = 1;
-            for (Map.Entry<Product, Integer> entry : products.entrySet()) {
-                Product product = entry.getKey();
+            for (Map.Entry<ShopProduct, Integer> entry : products.entrySet()) {
+                ShopProduct product = entry.getKey();
                 int quantity = entry.getValue();
                 System.out.println(index + ". " + product.toString() + " - Quantity: " + quantity);
                 index++;

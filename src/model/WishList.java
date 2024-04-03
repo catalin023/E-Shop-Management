@@ -5,13 +5,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class WishList implements Serializable {
-    private Map<Product, Integer> products;
+    private Map<ShopProduct, Integer> products;
 
     public WishList() {
         this.products = new HashMap<>();
     }
 
-    public void addProduct(Product product, int quantity) {
+    public void addProduct(ShopProduct product, int quantity) {
         if (products.containsKey(product)) {
             products.put(product, products.get(product) + quantity);
         } else {
@@ -19,7 +19,7 @@ public class WishList implements Serializable {
         }
     }
 
-    public Map<Product, Integer> getProducts() {
+    public Map<ShopProduct, Integer> getProducts() {
         return products;
     }
 

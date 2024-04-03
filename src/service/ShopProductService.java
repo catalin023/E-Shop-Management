@@ -99,6 +99,7 @@ public class ShopProductService {
         }
         else {
             shopProduct.setQuantity(shopProduct.getQuantity() + quantity);
+            shopProductDAO.updateProduct(shopProduct);
             Shop.getInstance().setBalance(Shop.getInstance().getBalance() - product.getPriceBuy() * quantity);
         }
     }
@@ -141,4 +142,8 @@ public class ShopProductService {
     }
 
 
+    public void deductQuantity(ShopProduct productToBuy, int quantity) {
+        productToBuy.setQuantity(productToBuy.getQuantity() - quantity);
+        shopProductDAO.updateProduct(productToBuy);
+    }
 }

@@ -4,45 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79059579-1c12-413d-b20b-a9c2c7701c8f" name="Changes" comment="minimize functions size">
-      <change afterPath="$PROJECT_DIR$/dataFiles/admin_data.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dataFiles/distributor_data.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dataFiles/product_data.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dataFiles/shop_data.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dataFiles/shop_product_data" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dao/ProductDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dao/ShopDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dao/ShopProductDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/daoImpl/ProductDAOImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/daoImpl/ShopDAOImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/daoImpl/ShopProductDAOImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/service/ProductService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/service/ShopProductService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/service/ShopService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+    <list default="true" id="79059579-1c12-413d-b20b-a9c2c7701c8f" name="Changes" comment="big changes that still dont work">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin_data.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/dataFiles/data.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/distributor_data.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataFiles/admin_data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/dataFiles/admin_data.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataFiles/distributor_data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/dataFiles/distributor_data.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataFiles/product_data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/dataFiles/product_data.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataFiles/shop_product_data" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataFiles/user_data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/dataFiles/user_data.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/application/AdminProgram.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/AdminProgram.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/application/DistributorProgram.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/DistributorProgram.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/application/UserProgram.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/UserProgram.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dao/DistributorDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/DistributorDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/daoImpl/AdminDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/daoImpl/AdminDAOImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/daoImpl/DistributorDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/daoImpl/DistributorDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/daoImpl/ProductDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/daoImpl/ProductDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/daoImpl/ShopDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/daoImpl/ShopDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/daoImpl/ShopProductDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/daoImpl/ShopProductDAOImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/daoImpl/UserDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/daoImpl/UserDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Admin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Distributor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Distributor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Shop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Shop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/ShopProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/ShopProduct.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/WishList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/WishList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/service/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/AdminService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/service/DistributorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/DistributorService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/ShopProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/ShopProductService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/dataFiles/user_data.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,7 +126,8 @@
       <workItem from="1711986019135" duration="3076000" />
       <workItem from="1712047546008" duration="1278000" />
       <workItem from="1712048857826" duration="8763000" />
-      <workItem from="1712066951650" duration="21186000" />
+      <workItem from="1712066951650" duration="21434000" />
+      <workItem from="1712162489298" duration="3786000" />
     </task>
     <task id="LOCAL-00001" summary="create_project">
       <option name="closed" value="true" />
@@ -285,7 +265,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711988501783</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="big changes that still dont work">
+      <option name="closed" value="true" />
+      <created>1712093447484</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1712093447485</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -317,6 +305,7 @@
     <MESSAGE value="productId bug fix" />
     <MESSAGE value="Back to one application main(" />
     <MESSAGE value="minimize functions size" />
-    <option name="LAST_COMMIT_MESSAGE" value="minimize functions size" />
+    <MESSAGE value="big changes that still dont work" />
+    <option name="LAST_COMMIT_MESSAGE" value="big changes that still dont work" />
   </component>
 </project>

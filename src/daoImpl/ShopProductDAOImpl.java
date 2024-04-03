@@ -13,20 +13,14 @@ public class ShopProductDAOImpl implements ShopProductDAO {
 
 
     private List<ShopProduct> products = new ArrayList<>();
-    private String filename = "dataFiles/shop_product_data.txt";
 
-    public ShopProductDAOImpl() {
-        loadProductsFromFile();
-    }
     @Override
     public List<ShopProduct> getAllProducts() {
-        loadProductsFromFile();
         return products;
     }
 
     @Override
     public ShopProduct getProductById(int productId) {
-        loadProductsFromFile();
         for (ShopProduct product : products) {
             if (product.getProductId() == productId) {
                 return product;
@@ -38,7 +32,6 @@ public class ShopProductDAOImpl implements ShopProductDAO {
     @Override
     public void addProduct(ShopProduct product) {
         products.add(product);
-        saveProductsToFile();
     }
 
     @Override
@@ -49,7 +42,6 @@ public class ShopProductDAOImpl implements ShopProductDAO {
                 product.setPriceBuy(newProduct.getPriceBuy());
                 product.setPriceSell(newProduct.getPriceSell());
                 product.setQuantity(newProduct.getQuantity());
-                saveProductsToFile();
                 return;
             }
         }
@@ -60,23 +52,22 @@ public class ShopProductDAOImpl implements ShopProductDAO {
         for (ShopProduct product : products) {
             if (product.getProductId() == productId) {
                 products.remove(product);
-                saveProductsToFile();
                 return;
             }
         }
     }
 
-    public void saveProductsToFile() {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
-            oos.writeObject(products);
-        } catch (IOException ignored) {
-        }
-    }
-
-    public void loadProductsFromFile() {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
-            products = (List<ShopProduct>) ois.readObject();
-        } catch (IOException | ClassNotFoundException ignored) {
-        }
-    }
+//    public void saveProductsToFile() {
+//        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
+//            oos.writeObject(products);
+//        } catch (IOException ignored) {
+//        }
+//    }
+//
+//    public void loadProductsFromFile() {
+//        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
+//            products = (List<ShopProduct>) ois.readObject();
+//        } catch (IOException | ClassNotFoundException ignored) {
+//        }
+//    }
 }

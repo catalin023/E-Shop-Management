@@ -12,22 +12,16 @@ import java.util.List;
 
 public class UserDAOImpl implements UserDAO {
     private List<User> users = new ArrayList<>();
-    private String filename = "dataFiles/user_data.txt";
 
 
-    public UserDAOImpl() {
-        loadUsersFromFile();
-    }
     @Override
     public List<User> getAllUsers() {
-        loadUsersFromFile();
         return users;
     }
 
 
     @Override
     public User getUserById(int userId) {
-        loadUsersFromFile();
         for (User user : users){
             if (user.getUserId() == userId){
                 return user;
@@ -39,7 +33,6 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void addUser(User user) {
         users.add(user);
-        saveUsersToFile();
     }
 
     @Override
@@ -50,7 +43,6 @@ public class UserDAOImpl implements UserDAO {
                 user.setEmail(newUser.getEmail());
                 user.setPassword(newUser.getPassword());
                 user.setBalance(newUser.getBalance());
-                saveUsersToFile();
                 return;
             }
         }
@@ -61,7 +53,6 @@ public class UserDAOImpl implements UserDAO {
         for (User user : users){
             if (user.getUserId() == userId){
                 users.remove(user);
-                saveUsersToFile();
                 return;
             }
         }
@@ -69,7 +60,6 @@ public class UserDAOImpl implements UserDAO {
 
 
     public User getUserByEmail(String email) {
-        loadUsersFromFile();
         for (User user : users){
             if (user.getEmail().equals(email)){
                 return user;
@@ -78,18 +68,18 @@ public class UserDAOImpl implements UserDAO {
         return null;
     }
 
-    public void saveUsersToFile() {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
-            oos.writeObject(users);
-        } catch (IOException ignored) {
-        }
-    }
-
-    public void loadUsersFromFile() {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
-            users = (List<User>) ois.readObject();
-        } catch (IOException | ClassNotFoundException ignored) {
-        }
-    }
+//    public void saveUsersToFile() {
+//        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
+//            oos.writeObject(users);
+//        } catch (IOException ignored) {
+//        }
+//    }
+//
+//    public void loadUsersFromFile() {
+//        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
+//            users = (List<User>) ois.readObject();
+//        } catch (IOException | ClassNotFoundException ignored) {
+//        }
+//    }
 
 }

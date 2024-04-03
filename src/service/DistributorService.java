@@ -49,7 +49,7 @@ public class DistributorService {
         List<Distributor> distributors = distributorDAO.getAllDistributors();
         System.out.println("List of Distributors:");
         for (int i = 0; i < distributors.size(); i++) {
-            System.out.println((i + 1) + ". " + distributors.get(i).toString());
+            System.out.println((i + 1) + ". " + distributors.get(i).getName());
         }
     }
 
@@ -84,28 +84,6 @@ public class DistributorService {
         }
         return distributors.get(choice - 1).getDistributorId();
 
-    }
-
-    public void saveDistributorsToFile(List<Distributor> distributors, String filename) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
-            oos.writeObject(distributors);
-            System.out.println("Distributors saved to file: " + filename);
-        } catch (IOException e) {
-            System.err.println("Error saving distributors to file: " + e.getMessage());
-        }
-    }
-
-    public List<Distributor> loadDistributorsFromFile(String filename) {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
-            List<Distributor> loadedDistributors = (List<Distributor>) ois.readObject();
-            distributorDAO.getAllDistributors().clear(); // Clear existing distributors
-            distributorDAO.getAllDistributors().addAll(loadedDistributors); // Add loaded distributors
-            System.out.println("Distributors loaded from file: " + filename);
-            return loadedDistributors;
-        } catch (IOException | ClassNotFoundException e) {
-            System.err.println("Error loading distributors from file: " + e.getMessage());
-            return null;
-        }
     }
 
 

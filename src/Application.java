@@ -127,7 +127,7 @@ public class Application {
                     shopProductService.readProducts();
                     break;
                 case "buy":
-                    userService.buyItem(user, shopProductService.chooseItem(scanner), scanner);
+                    userService.buyItem(user, shopProductService, scanner);
                     break;
                 case "update":
                     userService.updateUser(user, scanner);
@@ -172,7 +172,9 @@ public class Application {
                     break;
                 case "restock":
                     int distributorId = distributorService.getDistributorId(scanner);
+                    if (distributorId == -1) {break;}
                     Product product = productService.getProduct(distributorId, scanner);
+                    if (product == null) {break;}
                     shopProductService.restockProduct(product, scanner);
                     break;
                 case "updatep":
@@ -225,7 +227,7 @@ public class Application {
                     distributorService.updateDistributor(distributor, scanner);
                     break;
                 case "deletep":
-                    productService.updateProduct(distributor.getDistributorId(), scanner);
+                    productService.deleteProduct(distributor.getDistributorId(), scanner);
                     break;
                 case "deleted":
                     distributorService.deleteDistributor(distributor);
