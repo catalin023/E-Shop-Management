@@ -33,8 +33,3 @@ A Java application for managing an online shop, designed with separate functiona
 - Add balance to the user account.
 - Add products to the wishlist and view it.
 
-
-
-You can run multiple instances of each program simultaneously to simulate interactions between different users, administrators, and distributors.
-
-All data, including information about products, users, administrators, and distributors, is stored in separate text files. These files are automatically loaded when the respective program starts and are updated whenever changes are made through the application's functionalities. This allows for persistent storage of data between different runs of the program.
