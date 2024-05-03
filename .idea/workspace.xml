@@ -5,22 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="79059579-1c12-413d-b20b-a9c2c7701c8f" name="Changes" comment="big changes that still dont work">
+      <change afterPath="$PROJECT_DIR$/src/daoImpl/WishListDAOImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/database/DatabaseConnection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/database/scripts/createTables.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/DatabaseLoginData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dataFiles/admin_data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/dataFiles/admin_data.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dataFiles/distributor_data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/dataFiles/distributor_data.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dataFiles/product_data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/dataFiles/product_data.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dataFiles/shop_product_data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dataFiles/user_data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/dataFiles/user_data.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-Shop Managment.iml" beforeDir="false" afterPath="$PROJECT_DIR$/E-Shop Managment.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dao/AdminDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/AdminDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dao/DistributorDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/DistributorDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dao/ProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/ProductDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dao/ShopDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/ShopDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dao/ShopProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/ShopProductDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dao/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/UserDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/daoImpl/AdminDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/daoImpl/AdminDAOImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/daoImpl/DistributorDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/daoImpl/DistributorDAOImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/daoImpl/ProductDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/daoImpl/ProductDAOImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/daoImpl/ShopDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/daoImpl/ShopDAOImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/daoImpl/ShopProductDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/daoImpl/ShopProductDAOImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/daoImpl/UserDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/daoImpl/UserDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/WishList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/WishList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Distributor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Distributor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/ShopProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/ShopProduct.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/AdminService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/service/DistributorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/DistributorService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/ProductService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/service/ShopProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/ShopProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/ShopService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/ShopService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -39,6 +51,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;catalin023&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/catalin023/E-Shop-Management.git&quot;,
+    &quot;accountId&quot;: &quot;ca59322d-d48f-4c5e-a856-9ec1e49a0e37&quot;
+  }
+}</component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
 }</component>
@@ -70,15 +94,23 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Asus/IdeaProjects/E-Shop Managment&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/catalin/.config/JetBrains/IntelliJIdea2024.1/jdbc-drivers/MySQL ConnectorJ/8.2.0/com/mysql/mysql-connector-j/8.2.0/mysql-connector-j-8.2.0.jar&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/Asus/IdeaProjects/E-Shop Managment/src/Main.java&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.tools&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
+    ]
   }
 }</component>
   <component name="RecentsManager">
@@ -105,7 +137,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-4f524021" />
+        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
       </set>
     </attachedChunks>
   </component>
@@ -128,6 +161,14 @@
       <workItem from="1712048857826" duration="8763000" />
       <workItem from="1712066951650" duration="21434000" />
       <workItem from="1712162489298" duration="3786000" />
+      <workItem from="1712561637581" duration="77000" />
+      <workItem from="1712562419925" duration="4000" />
+      <workItem from="1712564005764" duration="24000" />
+      <workItem from="1712660416313" duration="1909000" />
+      <workItem from="1713265404484" duration="369000" />
+      <workItem from="1714494365135" duration="8952000" />
+      <workItem from="1714658354327" duration="7477000" />
+      <workItem from="1714744888237" duration="12873000" />
     </task>
     <task id="LOCAL-00001" summary="create_project">
       <option name="closed" value="true" />

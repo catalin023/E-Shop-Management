@@ -5,29 +5,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Distributor implements Serializable {
-    private static int nextDistributorId = 1;
     private int distributorId;
     private String name;
     private List<Product> products = new ArrayList<>();
 
     public Distributor(String name) {
-        this.distributorId = nextDistributorId++;
         this.name = name;
     }
 
     public Distributor(String name, List<Product> products) {
-        this.distributorId = nextDistributorId++;
         this.name = name;
         this.products = products;
+    }
+
+    public void setDistributorId(int distributorId) {
+        this.distributorId = distributorId;
     }
 
     public Distributor(int distributorId, String name, List<Product> products) {
         this.distributorId = distributorId;
         this.name = name;
         this.products = products;
-        if(distributorId >= nextDistributorId){
-            nextDistributorId = distributorId + 1;
-        }
+    }
+
+    public Distributor() {
+
     }
 
     public int getDistributorId() {

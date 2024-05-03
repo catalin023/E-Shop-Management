@@ -8,23 +8,24 @@ import model.Product;
 import service.ProductService;
 
 import java.io.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class DistributorService {
-    private DistributorDAO distributorDAO;
+    private final DistributorDAO distributorDAO;
 
     public DistributorService() {
         this.distributorDAO = new DistributorDAOImpl();
     }
 
-    public List<Distributor> getAllDistributors() {
+    public List<Distributor> getAllDistributors() throws SQLException {
         return distributorDAO.getAllDistributors();
     }
 
 
-    public Distributor addDistributor(Scanner scanner) {
+    public Distributor addDistributor(Scanner scanner) throws SQLException {
         System.out.println("Enter distributor name:");
         String name = scanner.nextLine();
         Distributor distributor = new Distributor(name);
@@ -32,7 +33,7 @@ public class DistributorService {
         return distributor;
     }
 
-    public Distributor enterDistributor(Scanner scanner) {
+    public Distributor enterDistributor(Scanner scanner) throws SQLException {
         System.out.println("Enter the name of the distributor you want to enter:");
         String distributorName = scanner.nextLine();
         Distributor distributor = distributorDAO.getDistributorByName(distributorName);
@@ -45,7 +46,7 @@ public class DistributorService {
         }
     }
 
-    public void readDistributors() {
+    public void readDistributors() throws SQLException {
         List<Distributor> distributors = distributorDAO.getAllDistributors();
         System.out.println("List of Distributors:");
         for (int i = 0; i < distributors.size(); i++) {
@@ -54,7 +55,7 @@ public class DistributorService {
     }
 
 
-    public void updateDistributor(Distributor distributor, Scanner scanner) {
+    public void updateDistributor(Distributor distributor, Scanner scanner) throws SQLException {
         System.out.println("Enter new distributor name:");
         String newName = scanner.nextLine();
         distributor.setName(newName);
@@ -62,17 +63,18 @@ public class DistributorService {
         System.out.println("Distributor updated successfully.");
     }
 
-    public void deleteDistributor(Distributor distributor) {
+    public void deleteDistributor(Distributor distributor) throws SQLException {
+
         distributorDAO.deleteDistributor(distributor.getDistributorId());
         System.out.println("Distributor deleted successfully.");
     }
 
-    public void addProductToDistributor(Distributor distributor, Product product) {
-        distributorDAO.addProductToDistributor(distributor, product);
+    public void addProductToDistributor(Distributor distributor, Product product) throws SQLException {
+        /*distributorDAO.addProductToDistributor(distributor, product);*/
         System.out.println("Product added to distributor.");
     }
 
-    public int getDistributorId(Scanner scanner) {
+    public int getDistributorId(Scanner scanner) throws SQLException {
         readDistributors();
         System.out.println("Enter the number of the distributor:");
         int choice = scanner.nextInt();

@@ -1,10 +1,11 @@
 import model.*;
 import service.*;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Application {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         Scanner scanner = new Scanner(System.in);
 
         AdminService adminService = new AdminService();
@@ -30,12 +31,12 @@ public class Application {
                         switch (userCommand) {
                             case "create":
                                 user = userService.addUser(scanner);
-                                userPanel(user, scanner, userService, shopProductService);
+                                userPanel(user, scanner, userService, shopProductService, shopService);
                                 break;
                             case "enter":
                                 user = userService.enterUser(scanner);
                                 if (user != null) {
-                                    userPanel(user, scanner, userService, shopProductService);
+                                    userPanel(user, scanner, userService, shopProductService, shopService);
                                 }
                                 break;
                             case "read":
@@ -59,12 +60,12 @@ public class Application {
                         switch (adminCommand) {
                             case "create":
                                 admin = adminService.addAdmin(scanner);
-                                adminPanel(admin, scanner, adminService, distributorService, productService, shopProductService);
+                                adminPanel(admin, scanner, adminService, distributorService, productService, shopProductService, shopService);
                                 break;
                             case "enter":
                                 admin = adminService.enterAdmin(scanner);
                                 if (admin != null) {
-                                    adminPanel(admin, scanner, adminService, distributorService, productService, shopProductService);
+                                    adminPanel(admin, scanner, adminService, distributorService, productService, shopProductService, shopService);
                                 }
                                 break;
                             case "read":
@@ -118,7 +119,7 @@ public class Application {
 
     }
 
-    private static void userPanel(User user, Scanner scanner, UserService userService, ShopProductService shopProductService) {
+    private static void userPanel(User user, Scanner scanner, UserService userService, ShopProductService shopProductService, ShopService shopService) throws SQLException {
         while (true) {
             userPanelMenu();
             String command = scanner.nextLine().toLowerCase();
@@ -127,7 +128,7 @@ public class Application {
                     shopProductService.readProducts();
                     break;
                 case "buy":
-                    userService.buyItem(user, shopProductService, scanner);
+                    userService.buyItem(user, shopProductService, shopService, scanner);
                     break;
                 case "update":
                     userService.updateUser(user, scanner);
@@ -161,13 +162,13 @@ public class Application {
         System.out.println("quit");
     }
 
-    private static void adminPanel(Admin admin, Scanner scanner, AdminService adminService, DistributorService distributorService, ProductService productService, ShopProductService shopProductService) {
+    private static void adminPanel(Admin admin, Scanner scanner, AdminService adminService, DistributorService distributorService, ProductService productService, ShopProductService shopProductService, ShopService shopService) throws SQLException {
         while (true) {
             adminPanelMenu();
             String command = scanner.nextLine().toLowerCase();
             switch (command) {
                 case "read":
-                    System.out.println("Shop balance " + Shop.getInstance().getBalance());
+                    System.out.println("Shop balance " + shopService.getShop());
                     shopProductService.readProducts();
                     break;
                 case "restock":
@@ -175,7 +176,7 @@ public class Application {
                     if (distributorId == -1) {break;}
                     Product product = productService.getProduct(distributorId, scanner);
                     if (product == null) {break;}
-                    shopProductService.restockProduct(product, scanner);
+                    shopProductService.restockProduct(product, shopService, scanner);
                     break;
                 case "updatep":
                     shopProductService.updatePrice(scanner);
@@ -209,7 +210,7 @@ public class Application {
         System.out.println("quit");
     }
 
-    private static void distributorPanel(Distributor distributor, Scanner scanner, DistributorService distributorService, ProductService productService){
+    private static void distributorPanel(Distributor distributor, Scanner scanner, DistributorService distributorService, ProductService productService) throws SQLException {
         while (true) {
             distributorPanelMenu();
             String command = scanner.nextLine().toLowerCase();

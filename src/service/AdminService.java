@@ -5,6 +5,7 @@ import daoImpl.AdminDAOImpl;
 import model.*;
 
 import java.io.*;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,16 +16,16 @@ public class AdminService {
         this.adminDAO = new AdminDAOImpl();
     }
 
-    public List<Admin> getAllAdmins() {
+    public List<Admin> getAllAdmins() throws SQLException {
         return adminDAO.getAllAdmins();
     }
 
 
-    public void deleteAdmin(int adminId) {
+    public void deleteAdmin(int adminId) throws SQLException {
         adminDAO.deleteAdmin(adminId);
     }
 
-    public Admin addAdmin(Scanner scanner) {
+    public Admin addAdmin(Scanner scanner) throws SQLException {
         System.out.println("Enter admin name:");
         String name = scanner.nextLine();
         System.out.println("Enter admin email:");
@@ -36,7 +37,7 @@ public class AdminService {
         return admin;
     }
 
-    public Admin enterAdmin(Scanner scanner) {
+    public Admin enterAdmin(Scanner scanner) throws SQLException {
         System.out.println("Enter your admin email:");
         String adminEmail = scanner.nextLine();
         Admin admin = adminDAO.getAdminByEmail(adminEmail);
@@ -49,7 +50,7 @@ public class AdminService {
         return admin;
     }
 
-    public void readAdmins() {
+    public void readAdmins() throws SQLException {
         List<Admin> admins = adminDAO.getAllAdmins();
         System.out.println("List of Admins:");
         for (Admin admin : admins) {
@@ -59,7 +60,7 @@ public class AdminService {
 
 
 
-    public void updateAdmin(Admin admin, Scanner scanner) {
+    public void updateAdmin(Admin admin, Scanner scanner) throws SQLException {
         System.out.println("Do you want to update the name? (yes/no)");
         String updateName = scanner.nextLine().toLowerCase();
         if (updateName.equals("yes")) {
@@ -77,6 +78,8 @@ public class AdminService {
         if (updatePassword.equals("yes")) {
             updatePassword(admin, scanner);
         }
+
+        adminDAO.updateAdmin(admin);
     }
 
     public void updateName(Admin admin, Scanner scanner){

@@ -3,7 +3,6 @@ package model;
 import java.io.Serializable;
 
 public class Product implements Serializable {
-    private static int nextProductId = 1;
     private int productId;
     private int distributorId;
     private String name;
@@ -11,7 +10,6 @@ public class Product implements Serializable {
     private int priceBuy;
 
     public Product(int distributorId, String name, String category, int priceBuy) {
-        this.productId = nextProductId++;
         this.name = name;
         this.category = category;
         this.priceBuy = priceBuy;
@@ -24,9 +22,10 @@ public class Product implements Serializable {
         this.category = category;
         this.priceBuy = priceBuy;
         this.distributorId = distributorId;
-        if(productId >= nextProductId){
-            nextProductId = ++productId;
-        }
+    }
+
+    public Product() {
+
     }
 
     public int getProductId() {
@@ -69,9 +68,6 @@ public class Product implements Serializable {
         this.priceBuy = priceBuy;
     }
 
-    public static void setNextProductId(int nextProductId) {
-        Product.nextProductId = nextProductId;
-    }
 
     @Override
     public String toString() {

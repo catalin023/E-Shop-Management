@@ -7,6 +7,7 @@ import model.Product;
 import model.Shop;
 import model.ShopProduct;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -19,16 +20,17 @@ public class ShopProductService {
         this.shopProductDAO = new ShopProductDAOImpl();
     }
 
-    public void createProduct(Product product, int quantity, Scanner scanner) {
+    public void createProduct(Product product, int quantity, ShopService shopService,Scanner scanner) throws SQLException {
         System.out.println("Enter product price to sell: ");
         int priceSell = scanner.nextInt();
         scanner.nextLine();
         ShopProduct shopProduct = new ShopProduct(product, priceSell, quantity);
         shopProductDAO.addProduct(shopProduct);
-        Shop.getInstance().setBalance(Shop.getInstance().getBalance() - product.getPriceBuy() * quantity);
+        Shop.getInstance().setBalance(shopService.getShop() - product.getPriceBuy() * quantity);
+        shopService.updateShop(Shop.getInstance());
     }
 
-    public void readProducts() {
+    public void readProducts() throws SQLException {
         System.out.println("List of Products:");
         List<ShopProduct> shopProducts = shopProductDAO.getAllProducts();
         for (int i = 0; i < shopProducts.size(); i++) {
@@ -36,7 +38,7 @@ public class ShopProductService {
         }
     }
 
-    public void deleteProduct(Scanner scanner) {
+    public void deleteProduct(Scanner scanner) throws SQLException {
         readProducts();
         System.out.println("Enter the number of the product to delete:");
         int choice = scanner.nextInt();
@@ -49,7 +51,7 @@ public class ShopProductService {
         shopProductDAO.deleteProduct(shopProducts.get(choice - 1).getProductId());
     }
 
-    public ShopProduct getProduct(Scanner scanner) {
+    public ShopProduct getProduct(Scanner scanner) throws SQLException {
         readProducts();
         System.out.println("Enter the number of the product to update:");
         int choice = scanner.nextInt();
@@ -62,7 +64,7 @@ public class ShopProductService {
         return shopProducts.get(choice - 1);
     }
 
-    public void updatePrice(Scanner scanner) {
+    public void updatePrice(Scanner scanner) throws SQLException {
 
         ShopProduct shopProductToUpdate = getProduct(scanner);
 
@@ -74,7 +76,7 @@ public class ShopProductService {
         shopProductDAO.updateProduct(shopProductToUpdate);
     }
 
-    public List<ShopProduct> filterProductsByCategory(String category) {
+    public List<ShopProduct> filterProductsByCategory(String category) throws SQLException {
         List<ShopProduct> filteredProducts = new ArrayList<>();
         for (ShopProduct product : shopProductDAO.getAllProducts()) {
             if (product.getCategory().equalsIgnoreCase(category)) {
@@ -84,27 +86,28 @@ public class ShopProductService {
         return filteredProducts;
     }
 
-    public void sortProductsByPrice() {
+    public void sortProductsByPrice() throws SQLException {
         shopProductDAO.getAllProducts().sort(Comparator.comparingInt(ShopProduct::getPriceSell));
     }
 
-    public void restockProduct(Product product, Scanner scanner) {
+    public void restockProduct(Product product, ShopService shopService,Scanner scanner) throws SQLException {
         ShopProduct shopProduct = shopProductDAO.getProductById(product.getProductId());
         System.out.println("Enter quantity to restock: ");
         int quantity = scanner.nextInt();
         scanner.nextLine();
 
         if (shopProduct == null) {
-            createProduct(product, quantity, scanner);
+            createProduct(product, quantity, shopService,scanner);
         }
         else {
             shopProduct.setQuantity(shopProduct.getQuantity() + quantity);
             shopProductDAO.updateProduct(shopProduct);
-            Shop.getInstance().setBalance(Shop.getInstance().getBalance() - product.getPriceBuy() * quantity);
+            Shop.getInstance().setBalance(shopService.getShop() - product.getPriceBuy() * quantity);
+            shopService.updateShop(Shop.getInstance());
         }
     }
 
-    public List<ShopProduct> viewProducts(Scanner scanner){
+    public List<ShopProduct> viewProducts(Scanner scanner) throws SQLException {
         System.out.println("View all/phone/TV/laptop/price");
         String command = scanner.nextLine();
         List<ShopProduct> products;
@@ -123,7 +126,7 @@ public class ShopProductService {
         return products;
     }
 
-    public ShopProduct chooseItem(Scanner scanner) {
+    public ShopProduct chooseItem(Scanner scanner) throws SQLException {
         List<ShopProduct> products = viewProducts(scanner);
         System.out.println("List of Products:");
         for (int i = 0; i < products.size(); i++) {
@@ -142,7 +145,7 @@ public class ShopProductService {
     }
 
 
-    public void deductQuantity(ShopProduct productToBuy, int quantity) {
+    public void deductQuantity(ShopProduct productToBuy, int quantity) throws SQLException {
         productToBuy.setQuantity(productToBuy.getQuantity() - quantity);
         shopProductDAO.updateProduct(productToBuy);
     }

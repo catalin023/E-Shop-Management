@@ -1,37 +1,41 @@
 package daoImpl;
 
 import dao.ShopDAO;
-import model.Product;
 import model.Shop;
-import model.ShopProduct;
+import database.DatabaseConnection;
 
-import java.io.*;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class ShopDAOImpl implements ShopDAO {
-    private Shop shop;
+    private final Connection connection = DatabaseConnection.getInstance().getConnection();
 
-
-    public Shop getShop() {
-        return shop;
+    @Override
+    public float getShop() throws SQLException {
+        String query = "SELECT * FROM SHOP";
+        ResultSet rs = null;
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            rs = statement.executeQuery();
+            if (rs.next()) {
+                float balance = rs.getInt("balance");
+                return balance;
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+        }
+        return 0;
     }
 
-    public void updateShop(Shop newShop) {
-        shop.setBalance(newShop.getBalance());
+    @Override
+    public void updateShop(Shop newShop) throws SQLException {
+        String sql = "UPDATE SHOP SET balance=?;";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setFloat(1, newShop.getBalance());
+            statement.executeUpdate();
+        }
     }
-
-
-//    public void saveShopToFile() {
-//        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
-//            oos.writeObject(shop);
-//        } catch (IOException ignored) {
-//        }
-//    }
-//
-//    public void loadShopFromFile() {
-//        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
-//            shop = (Shop) ois.readObject();
-//        } catch (IOException | ClassNotFoundException ignored) {
-//        }
-//    }
 }

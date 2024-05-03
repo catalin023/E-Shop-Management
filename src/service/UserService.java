@@ -3,31 +3,36 @@ package service;
 import dao.ShopProductDAO;
 import dao.UserDAO;
 import daoImpl.UserDAOImpl;
+import daoImpl.WishListDAOImpl;
 import model.*;
 import model.User;
 
 import java.io.*;
+import java.sql.SQLException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 public class UserService {
-    private UserDAO userDAO;
+    private final UserDAO userDAO;
+    private final WishListDAOImpl wishListDAO;
 
     public UserService() {
         this.userDAO = new UserDAOImpl();
+        this.wishListDAO = new WishListDAOImpl();
     }
 
-    public List<User> getAllUsers() {
+    public List<User> getAllUsers() throws SQLException {
         return userDAO.getAllUsers();
     }
 
-    public void deleteUser(int userId) {
+    public void deleteUser(int userId) throws SQLException {
+        wishListDAO.deleteItems(userId);
         userDAO.deleteUser(userId);
     }
 
-    public User addUser(Scanner scanner) {
+    public User addUser(Scanner scanner) throws SQLException {
         System.out.println("Enter user name:");
         String name = scanner.nextLine();
         System.out.println("Enter user email:");
@@ -39,7 +44,7 @@ public class UserService {
         return user;
     }
 
-    public void readUsers() {
+    public void readUsers() throws SQLException {
         List<User> users = userDAO.getAllUsers();
         System.out.println("List of Users:");
         for (User user : users) {
@@ -47,7 +52,7 @@ public class UserService {
         }
     }
 
-    public User enterUser(Scanner scanner) {
+    public User enterUser(Scanner scanner) throws SQLException {
         System.out.println("Enter your user email:");
         String userEmail = scanner.nextLine();
         User user = userDAO.getUserByEmail(userEmail);
@@ -60,7 +65,7 @@ public class UserService {
         return user;
     }
 
-    public void buyItem(User user, ShopProductService shopProductService, Scanner scanner) {
+    public void buyItem(User user, ShopProductService shopProductService, ShopService shopService, Scanner scanner) throws SQLException {
         ShopProduct productToBuy = shopProductService.chooseItem(scanner);
         if (productToBuy == null) {
             return;
@@ -71,22 +76,32 @@ public class UserService {
         scanner.nextLine();
 
         if (productToBuy.getQuantity() >= quantity && user.getBalance() >= (productToBuy.getPriceSell() * quantity)) {
-            productToBuy.setQuantity(productToBuy.getQuantity() - quantity);
             shopProductService.deductQuantity(productToBuy, quantity);
             deductBalance(user, productToBuy.getPriceSell() * quantity);
-            Shop.getInstance().setBalance(productToBuy.getPriceSell() * quantity + Shop.getInstance().getBalance());
+            Shop.getInstance().setBalance(productToBuy.getPriceSell() * quantity + shopService.getShop());
+            shopService.updateShop(Shop.getInstance());
         } else {
             System.out.println("Insufficient quantity or balance.");
             System.out.println("Do you want to add the product to wishlist?(yes/no)");
             String addWishList = scanner.nextLine().toLowerCase();
             if (addWishList.equals("yes")){
-                user.getWishList().addProduct(productToBuy, quantity);
+                addToWishlist(user, productToBuy, quantity);
             }
         }
     }
 
+    public void addToWishlist(User user, ShopProduct shopProduct, int quantity) throws SQLException {
+        Map<ShopProduct, Integer> products = wishListDAO.getWishList(user.getUserId()).getProducts();
+        if (products.containsKey(shopProduct)) {
+            wishListDAO.updateWishListItem(user.getUserId(), shopProduct.getId(), quantity);
+        } else {
+            wishListDAO.addItem(user.getUserId(), shopProduct.getId(), quantity);
+        }
 
-    public void updateUser(User user, Scanner scanner) {
+    }
+
+
+    public void updateUser(User user, Scanner scanner) throws SQLException {
         System.out.println("Do you want to update the name? (yes/no)");
         String updateName = scanner.nextLine().toLowerCase();
         if (updateName.equals("yes")) {
@@ -129,7 +144,7 @@ public class UserService {
     }
 
 
-    public void addBalance(User user, Scanner scanner) {
+    public void addBalance(User user, Scanner scanner) throws SQLException {
         System.out.println("Enter amount to add:");
         int amount = scanner.nextInt();
         scanner.nextLine();
@@ -138,10 +153,10 @@ public class UserService {
         System.out.println("Balance added successfully. Current balance: " + user.getBalance());
     }
 
-    public void readWishlist(User user, Scanner scanner) {
+    public void readWishlist(User user, Scanner scanner) throws SQLException {
         System.out.println("Wishlist:");
 
-        Map<ShopProduct, Integer> products = user.getWishList().getProducts();
+        Map<ShopProduct, Integer> products = wishListDAO.getWishList(user.getUserId()).getProducts();
         if (products.isEmpty()) {
             System.out.println("Your wishlist is empty.");
         } else {
@@ -155,7 +170,7 @@ public class UserService {
         }
     }
 
-    public void deductBalance(User user, float balance){
+    public void deductBalance(User user, float balance) throws SQLException {
         user.setBalance(user.getBalance() - balance);
         userDAO.updateUser(user);
     }

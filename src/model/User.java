@@ -33,6 +33,10 @@ public class User extends Person implements Serializable {
         nextUserId++;
     }
 
+    public User() {
+
+    }
+
     public int getUserId() {
         return userId;
     }

@@ -1,8 +1,10 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class ShopProduct extends Product implements Serializable {
+    private int id;
     private int priceSell;
     private int quantity;
 
@@ -16,6 +18,17 @@ public class ShopProduct extends Product implements Serializable {
         super(product.getProductId(), product.getDistributorId(), product.getName(), product.getCategory(), product.getPriceBuy());
         this.priceSell = priceSell;
         this.quantity = quantity;
+    }
+
+    public ShopProduct() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getPriceSell() {
@@ -37,7 +50,8 @@ public class ShopProduct extends Product implements Serializable {
     @Override
     public String toString() {
         return "ShopProduct{" +
-                "productId=" + this.getProductId() +
+                "id=" + id +
+                ", productId=" + this.getProductId() +
                 ", nume='" + this.getName() + '\'' +
                 ", category='" + this.getCategory() + '\'' +
                 ", priceBuy=" + this.getPriceBuy() +
@@ -46,5 +60,16 @@ public class ShopProduct extends Product implements Serializable {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ShopProduct that = (ShopProduct) o;
+        return id == that.id;
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }

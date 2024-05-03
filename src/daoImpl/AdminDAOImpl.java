@@ -2,84 +2,117 @@ package daoImpl;
 
 import dao.AdminDAO;
 import model.Admin;
+import database.DatabaseConnection;
 
-import java.io.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AdminDAOImpl implements AdminDAO {
-    private List<Admin> admins = new ArrayList<>();
+    private final Connection connection = DatabaseConnection.getInstance().getConnection();
 
     @Override
-    public List<Admin> getAllAdmins() {
+    public List<Admin> getAllAdmins() throws SQLException {
+        List<Admin> admins = new ArrayList<>();
+        String query = "SELECT * FROM ADMIN";
+        ResultSet rs = null;
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            rs = statement.executeQuery();
+            while (rs.next()) {
+                Admin admin = new Admin();
+                admin.setAdminId(rs.getInt("id"));
+                admin.setName(rs.getString("name"));
+                admin.setEmail(rs.getString("email"));
+                admin.setPassword(rs.getString("password"));
+                admins.add(admin);
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+        }
         return admins;
     }
 
     @Override
-    public Admin getAdminById(int adminId) {
-        for (Admin admin : admins){
-            if (admin.getAdminId() == adminId){
+    public Admin getAdminById(int adminId) throws SQLException {
+        String query = "SELECT * FROM ADMIN WHERE id=?";
+        ResultSet rs = null;
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, adminId);
+            rs = statement.executeQuery();
+            if (rs.next()) {
+                Admin admin = new Admin();
+                admin.setAdminId(rs.getInt("id"));
+                admin.setName(rs.getString("name"));
+                admin.setEmail(rs.getString("email"));
+                admin.setPassword(rs.getString("password"));
                 return admin;
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
             }
         }
         return null;
     }
 
-    public Admin getAdminByEmail(String email) {
-        for (Admin admin : admins){
-            if (admin.getEmail().equals(email)){
+    @Override
+    public Admin getAdminByEmail(String email) throws SQLException {
+        String query = "SELECT * FROM ADMIN WHERE email=?";
+        ResultSet rs = null;
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, email);
+            rs = statement.executeQuery();
+            if (rs.next()) {
+                Admin admin = new Admin();
+                admin.setAdminId(rs.getInt("id"));
+                admin.setName(rs.getString("name"));
+                admin.setEmail(rs.getString("email"));
+                admin.setPassword(rs.getString("password"));
                 return admin;
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
             }
         }
         return null;
     }
 
     @Override
-    public void addAdmin(Admin admin) {
-        admins.add(admin);
-    }
+    public void addAdmin(Admin admin) throws SQLException {
+        String sql = "INSERT INTO ADMIN (name, email, password) VALUES (?, ?, ?);";
 
-    @Override
-    public void updateAdmin(Admin newAdmin) {
-        for (Admin admin : admins){
-            if (admin.getAdminId() == newAdmin.getAdminId()){
-                admin.setName(newAdmin.getName());
-                admin.setEmail(newAdmin.getEmail());
-                admin.setPassword(newAdmin.getPassword());
-                return;
-            }
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, admin.getName());
+            statement.setString(2, admin.getEmail());
+            statement.setString(3, admin.getPassword());
+            statement.executeUpdate();
         }
     }
 
     @Override
-    public void deleteAdmin(int adminId) {
-        for (Admin admin : admins){
-            if (admin.getAdminId() == adminId){
-                admins.remove(admin);
-                return;
-            }
+    public void updateAdmin(Admin newAdmin) throws SQLException {
+        String sql = "UPDATE ADMIN SET name=?, email=?, password=? WHERE id=?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, newAdmin.getName());
+            statement.setString(2, newAdmin.getEmail());
+            statement.setString(3, newAdmin.getPassword());
+            statement.setInt(4, newAdmin.getAdminId());
+            statement.executeUpdate();
         }
     }
 
-
-//    public void saveAdminsToFile() {
-//        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
-//            oos.writeObject(admins);
-//            System.out.println("Admins saved to file: " + filename);
-//        } catch (IOException e) {
-//            System.err.println("Error saving admins to file: " + e.getMessage());
-//        }
-//    }
-//
-//    public void loadAdminsFromFile() {
-//        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
-//            admins = (List<Admin>) ois.readObject();
-//            System.out.println("Admins loaded from file: " + filename);
-//            return;
-//        } catch (IOException | ClassNotFoundException e) {
-//            System.err.println("Error loading admins from file: " + e.getMessage());
-//            return;
-//        }
-//    }
-
+    @Override
+    public void deleteAdmin(int adminId) throws SQLException {
+        String sql = "DELETE FROM ADMIN WHERE id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, adminId);
+            statement.executeUpdate();
+        }
+    }
 }

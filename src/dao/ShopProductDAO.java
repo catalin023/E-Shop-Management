@@ -2,12 +2,13 @@ package dao;
 
 import model.ShopProduct;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface ShopProductDAO {
-    List<ShopProduct> getAllProducts();
-    ShopProduct getProductById(int productId);
-    void addProduct(ShopProduct product);
-    void updateProduct(ShopProduct product);
-    void deleteProduct(int productId);
+    List<ShopProduct> getAllProducts() throws SQLException;
+    ShopProduct getProductById(int productId) throws SQLException;
+    void addProduct(ShopProduct product) throws SQLException;
+    void updateProduct(ShopProduct product) throws SQLException;
+    void deleteProduct(int productId) throws SQLException;
 }
