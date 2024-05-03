@@ -6,12 +6,15 @@ import daoImpl.ShopProductDAOImpl;
 import model.Product;
 import model.Shop;
 import model.ShopProduct;
+import utils.FileManagement;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+
+import static utils.DatabaseLoginData.AUDIT_FILE;
 
 public class ShopProductService {
     private ShopProductDAO shopProductDAO;
@@ -26,6 +29,7 @@ public class ShopProductService {
         scanner.nextLine();
         ShopProduct shopProduct = new ShopProduct(product, priceSell, quantity);
         shopProductDAO.addProduct(shopProduct);
+        FileManagement.scriereFisierChar(AUDIT_FILE, "create shop product " + shopProduct.getName());
         Shop.getInstance().setBalance(shopService.getShop() - product.getPriceBuy() * quantity);
         shopService.updateShop(Shop.getInstance());
     }
@@ -33,6 +37,7 @@ public class ShopProductService {
     public void readProducts() throws SQLException {
         System.out.println("List of Products:");
         List<ShopProduct> shopProducts = shopProductDAO.getAllProducts();
+        FileManagement.scriereFisierChar(AUDIT_FILE, "read products");
         for (int i = 0; i < shopProducts.size(); i++) {
             System.out.println((i + 1) + ". " + shopProducts.get(i).toString());
         }
@@ -49,6 +54,7 @@ public class ShopProductService {
             return;
         }
         shopProductDAO.deleteProduct(shopProducts.get(choice - 1).getProductId());
+        FileManagement.scriereFisierChar(AUDIT_FILE, "delete shop product " + shopProducts.get(choice - 1).getName());
     }
 
     public ShopProduct getProduct(Scanner scanner) throws SQLException {
@@ -61,6 +67,7 @@ public class ShopProductService {
             System.out.println("Invalid choice.");
             return null;
         }
+        FileManagement.scriereFisierChar(AUDIT_FILE, "read shop product " + shopProducts.get(choice - 1).getName());
         return shopProducts.get(choice - 1);
     }
 
@@ -74,6 +81,7 @@ public class ShopProductService {
         shopProductToUpdate.setPriceSell(newPriceSell);
 
         shopProductDAO.updateProduct(shopProductToUpdate);
+        FileManagement.scriereFisierChar(AUDIT_FILE, "update shop product " + shopProductToUpdate.getName());
     }
 
     public List<ShopProduct> filterProductsByCategory(String category) throws SQLException {
@@ -86,9 +94,6 @@ public class ShopProductService {
         return filteredProducts;
     }
 
-    public void sortProductsByPrice() throws SQLException {
-        shopProductDAO.getAllProducts().sort(Comparator.comparingInt(ShopProduct::getPriceSell));
-    }
 
     public void restockProduct(Product product, ShopService shopService,Scanner scanner) throws SQLException {
         ShopProduct shopProduct = shopProductDAO.getProductById(product.getProductId());
@@ -102,6 +107,7 @@ public class ShopProductService {
         else {
             shopProduct.setQuantity(shopProduct.getQuantity() + quantity);
             shopProductDAO.updateProduct(shopProduct);
+            FileManagement.scriereFisierChar(AUDIT_FILE, "update shop product " + shopProduct.getName());
             Shop.getInstance().setBalance(shopService.getShop() - product.getPriceBuy() * quantity);
             shopService.updateShop(Shop.getInstance());
         }
@@ -123,6 +129,7 @@ public class ShopProductService {
                 products = filterProductsByCategory(command);
                 break;
         }
+        FileManagement.scriereFisierChar(AUDIT_FILE, "read shop products");
         return products;
     }
 
@@ -148,5 +155,6 @@ public class ShopProductService {
     public void deductQuantity(ShopProduct productToBuy, int quantity) throws SQLException {
         productToBuy.setQuantity(productToBuy.getQuantity() - quantity);
         shopProductDAO.updateProduct(productToBuy);
+        FileManagement.scriereFisierChar(AUDIT_FILE, "update shop product " + productToBuy.getName());
     }
 }

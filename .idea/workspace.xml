@@ -4,36 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79059579-1c12-413d-b20b-a9c2c7701c8f" name="Changes" comment="big changes that still dont work">
-      <change afterPath="$PROJECT_DIR$/src/daoImpl/WishListDAOImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/database/DatabaseConnection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/database/scripts/createTables.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/DatabaseLoginData.java" afterDir="false" />
+    <list default="true" id="79059579-1c12-413d-b20b-a9c2c7701c8f" name="Changes" comment="database connection">
+      <change afterPath="$PROJECT_DIR$/src/utils/FileManagement.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-Shop Managment.iml" beforeDir="false" afterPath="$PROJECT_DIR$/E-Shop Managment.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dao/AdminDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/AdminDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dao/DistributorDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/DistributorDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dao/ProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/ProductDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dao/ShopDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/ShopDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dao/ShopProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/ShopProductDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dao/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/UserDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/daoImpl/AdminDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/daoImpl/AdminDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/daoImpl/DistributorDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/daoImpl/DistributorDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/daoImpl/ProductDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/daoImpl/ProductDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/daoImpl/ShopDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/daoImpl/ShopDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/daoImpl/ShopProductDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/daoImpl/ShopProductDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/daoImpl/UserDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/daoImpl/UserDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Distributor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Distributor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/ShopProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/ShopProduct.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/service/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/AdminService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/service/DistributorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/DistributorService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/ProductService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/service/ShopProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/ShopProductService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/service/ShopService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/ShopService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/DatabaseLoginData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/DatabaseLoginData.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,7 +149,7 @@
       <workItem from="1713265404484" duration="369000" />
       <workItem from="1714494365135" duration="8952000" />
       <workItem from="1714658354327" duration="7477000" />
-      <workItem from="1714744888237" duration="12873000" />
+      <workItem from="1714744888237" duration="20157000" />
     </task>
     <task id="LOCAL-00001" summary="create_project">
       <option name="closed" value="true" />
@@ -314,7 +295,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712093447485</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="database connection">
+      <option name="closed" value="true" />
+      <created>1714761209973</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1714761209973</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -347,6 +336,7 @@
     <MESSAGE value="Back to one application main(" />
     <MESSAGE value="minimize functions size" />
     <MESSAGE value="big changes that still dont work" />
-    <option name="LAST_COMMIT_MESSAGE" value="big changes that still dont work" />
+    <MESSAGE value="database connection" />
+    <option name="LAST_COMMIT_MESSAGE" value="database connection" />
   </component>
 </project>

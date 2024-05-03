@@ -219,7 +219,8 @@ public class Application {
                     productService.readProducts(distributor.getDistributorId());
                     break;
                 case "create":
-                    distributorService.addProductToDistributor(distributor, productService.createProduct(distributor.getDistributorId(), scanner));
+                    productService.createProduct(distributor.getDistributorId(), scanner);
+                    //distributorService.addProductToDistributor(distributor, productService.createProduct(distributor.getDistributorId(), scanner));
                     break;
                 case "updatep":
                     productService.updateProduct(distributor.getDistributorId(), scanner);

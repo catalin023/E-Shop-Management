@@ -3,11 +3,15 @@ package service;
 import dao.AdminDAO;
 import daoImpl.AdminDAOImpl;
 import model.*;
+import utils.FileManagement;
 
 import java.io.*;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
+
+import static utils.DatabaseLoginData.AUDIT_FILE;
 
 public class AdminService {
     private AdminDAO adminDAO;
@@ -16,13 +20,10 @@ public class AdminService {
         this.adminDAO = new AdminDAOImpl();
     }
 
-    public List<Admin> getAllAdmins() throws SQLException {
-        return adminDAO.getAllAdmins();
-    }
-
 
     public void deleteAdmin(int adminId) throws SQLException {
         adminDAO.deleteAdmin(adminId);
+        FileManagement.scriereFisierChar(AUDIT_FILE, "delete admin " + adminId);
     }
 
     public Admin addAdmin(Scanner scanner) throws SQLException {
@@ -34,6 +35,8 @@ public class AdminService {
         String password = scanner.nextLine();
         Admin admin = new Admin(name, email, password);
         adminDAO.addAdmin(admin);
+        FileManagement.scriereFisierChar(AUDIT_FILE, "create admin " + name);
+        admin = adminDAO.getAdminByEmail(email);
         return admin;
     }
 
@@ -41,6 +44,7 @@ public class AdminService {
         System.out.println("Enter your admin email:");
         String adminEmail = scanner.nextLine();
         Admin admin = adminDAO.getAdminByEmail(adminEmail);
+        FileManagement.scriereFisierChar(AUDIT_FILE, "read admin " + adminEmail);
         if (admin != null) {
             System.out.println("Welcome, " + admin.getName());
         } else {
@@ -52,6 +56,7 @@ public class AdminService {
 
     public void readAdmins() throws SQLException {
         List<Admin> admins = adminDAO.getAllAdmins();
+        FileManagement.scriereFisierChar(AUDIT_FILE, "read admins");
         System.out.println("List of Admins:");
         for (Admin admin : admins) {
             System.out.println(admin.getName());
@@ -80,6 +85,7 @@ public class AdminService {
         }
 
         adminDAO.updateAdmin(admin);
+        FileManagement.scriereFisierChar(AUDIT_FILE, "update admin " + admin.getName());
     }
 
     public void updateName(Admin admin, Scanner scanner){

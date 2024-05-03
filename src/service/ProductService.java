@@ -3,10 +3,13 @@ package service;
 import dao.ProductDAO;
 import daoImpl.ProductDAOImpl;
 import model.Product;
+import utils.FileManagement;
 
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
+
+import static utils.DatabaseLoginData.AUDIT_FILE;
 
 public class ProductService {
 
@@ -26,12 +29,14 @@ public class ProductService {
         scanner.nextLine();
         Product product = new Product(distributorId, productName, productCategory, productPrice);
         productDAO.addProduct(product);
+        FileManagement.scriereFisierChar(AUDIT_FILE, "create product " + productName);
         return product;
     }
 
     public void readProducts(int distributorId) throws SQLException {
         System.out.println("List of Products:");
         List<Product> products = productDAO.getProductsByDistributorId(distributorId);
+        FileManagement.scriereFisierChar(AUDIT_FILE, "read products");
         for (int i = 0; i < products.size(); i++) {
             System.out.println((i + 1) + ". " + products.get(i).toString());
         }
@@ -47,6 +52,7 @@ public class ProductService {
             return;
         }
         productDAO.deleteProduct(products.get(choice - 1).getProductId());
+        FileManagement.scriereFisierChar(AUDIT_FILE, "delete product " + products.get(choice - 1).getProductId());
     }
 
     public void updateProduct(int distributorId, Scanner scanner) throws SQLException {
@@ -68,6 +74,7 @@ public class ProductService {
         scanner.nextLine();
         productToUpdate.setPriceBuy(newPrice);
         productDAO.updateProduct(productToUpdate);
+        FileManagement.scriereFisierChar(AUDIT_FILE, "update product " + productToUpdate.getName());
     }
 
 
@@ -81,6 +88,7 @@ public class ProductService {
             System.out.println("Invalid choice.");
             return null;
         }
+        FileManagement.scriereFisierChar(AUDIT_FILE, "read product " + products.get(choice - 1).getName());
         return products.get(choice - 1);
     }
 }
