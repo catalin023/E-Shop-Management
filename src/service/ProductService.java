@@ -1,6 +1,5 @@
 package service;
 
-import dao.ProductDAO;
 import daoImpl.ProductDAOImpl;
 import model.Product;
 import utils.FileManagement;
@@ -13,7 +12,7 @@ import static utils.DatabaseLoginData.AUDIT_FILE;
 
 public class ProductService {
 
-    private ProductDAO productDAO;
+    private ProductDAOImpl productDAO;
 
     public ProductService() {
         this.productDAO = new ProductDAOImpl();
@@ -28,14 +27,14 @@ public class ProductService {
         int productPrice = scanner.nextInt();
         scanner.nextLine();
         Product product = new Product(distributorId, productName, productCategory, productPrice);
-        productDAO.addProduct(product);
+        productDAO.create(product);
         FileManagement.scriereFisierChar(AUDIT_FILE, "create product " + productName);
         return product;
     }
 
     public void readProducts(int distributorId) throws SQLException {
         System.out.println("List of Products:");
-        List<Product> products = productDAO.getProductsByDistributorId(distributorId);
+        List<Product> products = productDAO.readByDistributorId(distributorId);
         FileManagement.scriereFisierChar(AUDIT_FILE, "read products");
         for (int i = 0; i < products.size(); i++) {
             System.out.println((i + 1) + ". " + products.get(i).toString());
@@ -46,12 +45,12 @@ public class ProductService {
         System.out.println("Enter the number of the product to delete:");
         int choice = scanner.nextInt();
         scanner.nextLine();
-        List<Product> products = productDAO.getProductsByDistributorId(distributorId);
+        List<Product> products = productDAO.readByDistributorId(distributorId);
         if (choice < 1 || choice > products.size()) {
             System.out.println("Invalid choice.");
             return;
         }
-        productDAO.deleteProduct(products.get(choice - 1).getProductId());
+        productDAO.delete(products.get(choice - 1).getProductId());
         FileManagement.scriereFisierChar(AUDIT_FILE, "delete product " + products.get(choice - 1).getProductId());
     }
 
@@ -60,7 +59,7 @@ public class ProductService {
         System.out.println("Enter the number of the product to update:");
         int choice = scanner.nextInt();
         scanner.nextLine();
-        List<Product> products = productDAO.getProductsByDistributorId(distributorId);
+        List<Product> products = productDAO.readByDistributorId(distributorId);
         if (choice < 1 || choice > products.size()) {
             System.out.println("Invalid choice.");
             return;
@@ -73,7 +72,7 @@ public class ProductService {
         int newPrice = scanner.nextInt();
         scanner.nextLine();
         productToUpdate.setPriceBuy(newPrice);
-        productDAO.updateProduct(productToUpdate);
+        productDAO.update(productToUpdate);
         FileManagement.scriereFisierChar(AUDIT_FILE, "update product " + productToUpdate.getName());
     }
 
@@ -83,7 +82,7 @@ public class ProductService {
         System.out.println("Enter the number of the product to update:");
         int choice = scanner.nextInt();
         scanner.nextLine();
-        List<Product> products = productDAO.getProductsByDistributorId(distributorId);
+        List<Product> products = productDAO.readByDistributorId(distributorId);
         if (choice < 1 || choice > products.size()) {
             System.out.println("Invalid choice.");
             return null;

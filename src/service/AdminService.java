@@ -1,20 +1,17 @@
 package service;
 
-import dao.AdminDAO;
 import daoImpl.AdminDAOImpl;
 import model.*;
 import utils.FileManagement;
 
-import java.io.*;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
 
 import static utils.DatabaseLoginData.AUDIT_FILE;
 
 public class AdminService {
-    private AdminDAO adminDAO;
+    private AdminDAOImpl adminDAO;
 
     public AdminService() {
         this.adminDAO = new AdminDAOImpl();
@@ -22,7 +19,7 @@ public class AdminService {
 
 
     public void deleteAdmin(int adminId) throws SQLException {
-        adminDAO.deleteAdmin(adminId);
+        adminDAO.delete(adminId);
         FileManagement.scriereFisierChar(AUDIT_FILE, "delete admin " + adminId);
     }
 
@@ -34,16 +31,16 @@ public class AdminService {
         System.out.println("Enter admin password:");
         String password = scanner.nextLine();
         Admin admin = new Admin(name, email, password);
-        adminDAO.addAdmin(admin);
+        adminDAO.create(admin);
         FileManagement.scriereFisierChar(AUDIT_FILE, "create admin " + name);
-        admin = adminDAO.getAdminByEmail(email);
+        admin = adminDAO.readByEmail(email);
         return admin;
     }
 
     public Admin enterAdmin(Scanner scanner) throws SQLException {
         System.out.println("Enter your admin email:");
         String adminEmail = scanner.nextLine();
-        Admin admin = adminDAO.getAdminByEmail(adminEmail);
+        Admin admin = adminDAO.readByEmail(adminEmail);
         FileManagement.scriereFisierChar(AUDIT_FILE, "read admin " + adminEmail);
         if (admin != null) {
             System.out.println("Welcome, " + admin.getName());
@@ -55,7 +52,7 @@ public class AdminService {
     }
 
     public void readAdmins() throws SQLException {
-        List<Admin> admins = adminDAO.getAllAdmins();
+        List<Admin> admins = adminDAO.read();
         FileManagement.scriereFisierChar(AUDIT_FILE, "read admins");
         System.out.println("List of Admins:");
         for (Admin admin : admins) {
@@ -84,7 +81,7 @@ public class AdminService {
             updatePassword(admin, scanner);
         }
 
-        adminDAO.updateAdmin(admin);
+        adminDAO.update(admin);
         FileManagement.scriereFisierChar(AUDIT_FILE, "update admin " + admin.getName());
     }
 

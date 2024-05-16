@@ -1,6 +1,6 @@
 package daoImpl;
 
-import dao.ShopProductDAO;
+import dao.DAOInterface;
 import model.ShopProduct;
 import database.DatabaseConnection;
 
@@ -11,11 +11,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShopProductDAOImpl implements ShopProductDAO {
+public class ShopProductDAOImpl implements DAOInterface<ShopProduct> {
     private final Connection connection = DatabaseConnection.getInstance().getConnection();
 
     @Override
-    public List<ShopProduct> getAllProducts() throws SQLException {
+    public List<ShopProduct> read() throws SQLException {
         List<ShopProduct> products = new ArrayList<>();
         String query = "SELECT * FROM SHOP_PRODUCT";
         ResultSet rs = null;
@@ -41,8 +41,7 @@ public class ShopProductDAOImpl implements ShopProductDAO {
         return products;
     }
 
-    @Override
-    public ShopProduct getProductById(int id) throws SQLException {
+    public ShopProduct readById(int id) throws SQLException {
         String query = "SELECT * FROM SHOP_PRODUCT WHERE productId=?";
         ResultSet rs = null;
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -69,7 +68,7 @@ public class ShopProductDAOImpl implements ShopProductDAO {
     }
 
     @Override
-    public void addProduct(ShopProduct product) throws SQLException {
+    public void create(ShopProduct product) throws SQLException {
         String sql = "INSERT INTO SHOP_PRODUCT VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, product.getId());
@@ -81,26 +80,29 @@ public class ShopProductDAOImpl implements ShopProductDAO {
             statement.setInt(7, product.getPriceSell());
             statement.setInt(8, product.getQuantity());
             statement.executeUpdate();
+            connection.commit();
         }
     }
 
     @Override
-    public void updateProduct(ShopProduct newProduct) throws SQLException {
+    public void update(ShopProduct newProduct) throws SQLException {
         String sql = "UPDATE SHOP_PRODUCT SET priceSell=?, quantity=? WHERE id=?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, newProduct.getPriceSell());
             statement.setInt(2, newProduct.getQuantity());
             statement.setInt(3, newProduct.getId());
             statement.executeUpdate();
+            connection.commit();
         }
     }
 
     @Override
-    public void deleteProduct(int id) throws SQLException {
+    public void delete(int id) throws SQLException {
         String sql = "DELETE FROM SHOP_PRODUCT WHERE id=?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             statement.executeUpdate();
+            connection.commit();
         }
     }
 }

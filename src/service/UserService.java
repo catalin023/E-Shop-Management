@@ -1,16 +1,12 @@
 package service;
 
-import dao.ShopProductDAO;
-import dao.UserDAO;
 import daoImpl.UserDAOImpl;
 import daoImpl.WishListDAOImpl;
 import model.*;
 import model.User;
 import utils.FileManagement;
 
-import java.io.*;
 import java.sql.SQLException;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -18,7 +14,7 @@ import java.util.Scanner;
 import static utils.DatabaseLoginData.AUDIT_FILE;
 
 public class UserService {
-    private final UserDAO userDAO;
+    private final UserDAOImpl userDAO;
     private final WishListDAOImpl wishListDAO;
 
     public UserService() {
@@ -27,9 +23,9 @@ public class UserService {
     }
 
     public void deleteUser(int userId) throws SQLException {
-        wishListDAO.deleteItems(userId);
+        wishListDAO.delete(userId);
         FileManagement.scriereFisierChar(AUDIT_FILE, "delete wishlist " + userId);
-        userDAO.deleteUser(userId);
+        userDAO.delete(userId);
         FileManagement.scriereFisierChar(AUDIT_FILE, "delete user " + userId);
     }
 
@@ -41,14 +37,14 @@ public class UserService {
         System.out.println("Enter user password:");
         String password = scanner.nextLine();
         User user = new User(name, email, password);
-        userDAO.addUser(user);
+        userDAO.create(user);
         FileManagement.scriereFisierChar(AUDIT_FILE, "create user " + name);
-        user = userDAO.getUserByEmail(email);
+        user = userDAO.readByEmail(email);
         return user;
     }
 
     public void readUsers() throws SQLException {
-        List<User> users = userDAO.getAllUsers();
+        List<User> users = userDAO.read();
         FileManagement.scriereFisierChar(AUDIT_FILE, "read users");
         System.out.println("List of Users:");
         for (User user : users) {
@@ -59,7 +55,7 @@ public class UserService {
     public User enterUser(Scanner scanner) throws SQLException {
         System.out.println("Enter your user email:");
         String userEmail = scanner.nextLine();
-        User user = userDAO.getUserByEmail(userEmail);
+        User user = userDAO.readByEmail(userEmail);
         if (user != null) {
             System.out.println("Welcome, " + user.getName());
         } else {
@@ -96,13 +92,13 @@ public class UserService {
     }
 
     public void addToWishlist(User user, ShopProduct shopProduct, int quantity) throws SQLException {
-        Map<ShopProduct, Integer> products = wishListDAO.getWishList(user.getUserId()).getProducts();
+        Map<ShopProduct, Integer> products = wishListDAO.read(user.getUserId()).getProducts();
         FileManagement.scriereFisierChar(AUDIT_FILE, "read wishlist " + user.getUserId());
         if (products.containsKey(shopProduct)) {
-            wishListDAO.updateWishListItem(user.getUserId(), shopProduct.getId(), quantity);
+            wishListDAO.update(user.getUserId(), shopProduct.getId(), quantity);
             FileManagement.scriereFisierChar(AUDIT_FILE, "update wishlist " + user.getUserId());
         } else {
-            wishListDAO.addItem(user.getUserId(), shopProduct.getId(), quantity);
+            wishListDAO.create(user.getUserId(), shopProduct.getId(), quantity);
             FileManagement.scriereFisierChar(AUDIT_FILE, "create wishlist " + user.getUserId());
         }
 
@@ -127,7 +123,7 @@ public class UserService {
         if (updatePassword.equals("yes")) {
             updatePassword(user, scanner);
         }
-        userDAO.updateUser(user);
+        userDAO.update(user);
         FileManagement.scriereFisierChar(AUDIT_FILE, "udate user " + user.getName());
     }
 
@@ -158,7 +154,7 @@ public class UserService {
         int amount = scanner.nextInt();
         scanner.nextLine();
         user.setBalance(user.getBalance() + amount);
-        userDAO.updateUser(user);
+        userDAO.update(user);
         System.out.println("Balance added successfully. Current balance: " + user.getBalance());
         FileManagement.scriereFisierChar(AUDIT_FILE, "update user " + user.getName());
     }
@@ -166,7 +162,7 @@ public class UserService {
     public void readWishlist(User user, Scanner scanner) throws SQLException {
         System.out.println("Wishlist:");
 
-        Map<ShopProduct, Integer> products = wishListDAO.getWishList(user.getUserId()).getProducts();
+        Map<ShopProduct, Integer> products = wishListDAO.read(user.getUserId()).getProducts();
         FileManagement.scriereFisierChar(AUDIT_FILE, "read wishlist " + user.getUserId());
         if (products.isEmpty()) {
             System.out.println("Your wishlist is empty.");
@@ -183,7 +179,7 @@ public class UserService {
 
     public void deductBalance(User user, float balance) throws SQLException {
         user.setBalance(user.getBalance() - balance);
-        userDAO.updateUser(user);
+        userDAO.update(user);
         FileManagement.scriereFisierChar(AUDIT_FILE, "update user " + user.getName());
     }
 }

@@ -16,12 +16,12 @@ public class ShopService {
         this.shopDAO = new ShopDAOImpl();
     }
     public void updateShop(Shop shop) throws SQLException {
-        shopDAO.updateShop(shop);
+        shopDAO.update(shop);
         FileManagement.scriereFisierChar(AUDIT_FILE, "update shop");
     }
 
     public float getShop() throws SQLException {
         FileManagement.scriereFisierChar(AUDIT_FILE, "read shop");
-        return shopDAO.getShop();
+        return shopDAO.read();
     }
 }

@@ -1,7 +1,5 @@
 package service;
 
-import dao.ProductDAO;
-import dao.ShopProductDAO;
 import daoImpl.ShopProductDAOImpl;
 import model.Product;
 import model.Shop;
@@ -17,7 +15,7 @@ import java.util.Scanner;
 import static utils.DatabaseLoginData.AUDIT_FILE;
 
 public class ShopProductService {
-    private ShopProductDAO shopProductDAO;
+    private ShopProductDAOImpl shopProductDAO;
 
     public ShopProductService() {
         this.shopProductDAO = new ShopProductDAOImpl();
@@ -28,7 +26,7 @@ public class ShopProductService {
         int priceSell = scanner.nextInt();
         scanner.nextLine();
         ShopProduct shopProduct = new ShopProduct(product, priceSell, quantity);
-        shopProductDAO.addProduct(shopProduct);
+        shopProductDAO.create(shopProduct);
         FileManagement.scriereFisierChar(AUDIT_FILE, "create shop product " + shopProduct.getName());
         Shop.getInstance().setBalance(shopService.getShop() - product.getPriceBuy() * quantity);
         shopService.updateShop(Shop.getInstance());
@@ -36,7 +34,7 @@ public class ShopProductService {
 
     public void readProducts() throws SQLException {
         System.out.println("List of Products:");
-        List<ShopProduct> shopProducts = shopProductDAO.getAllProducts();
+        List<ShopProduct> shopProducts = shopProductDAO.read();
         FileManagement.scriereFisierChar(AUDIT_FILE, "read products");
         for (int i = 0; i < shopProducts.size(); i++) {
             System.out.println((i + 1) + ". " + shopProducts.get(i).toString());
@@ -48,12 +46,12 @@ public class ShopProductService {
         System.out.println("Enter the number of the product to delete:");
         int choice = scanner.nextInt();
         scanner.nextLine();
-        List<ShopProduct> shopProducts = shopProductDAO.getAllProducts();
+        List<ShopProduct> shopProducts = shopProductDAO.read();
         if (choice < 1 || choice > shopProducts.size()) {
             System.out.println("Invalid choice.");
             return;
         }
-        shopProductDAO.deleteProduct(shopProducts.get(choice - 1).getProductId());
+        shopProductDAO.delete(shopProducts.get(choice - 1).getProductId());
         FileManagement.scriereFisierChar(AUDIT_FILE, "delete shop product " + shopProducts.get(choice - 1).getName());
     }
 
@@ -62,7 +60,7 @@ public class ShopProductService {
         System.out.println("Enter the number of the product to update:");
         int choice = scanner.nextInt();
         scanner.nextLine();
-        List<ShopProduct> shopProducts = shopProductDAO.getAllProducts();
+        List<ShopProduct> shopProducts = shopProductDAO.read();
         if (choice < 1 || choice > shopProducts.size()) {
             System.out.println("Invalid choice.");
             return null;
@@ -80,13 +78,13 @@ public class ShopProductService {
         scanner.nextLine();
         shopProductToUpdate.setPriceSell(newPriceSell);
 
-        shopProductDAO.updateProduct(shopProductToUpdate);
+        shopProductDAO.update(shopProductToUpdate);
         FileManagement.scriereFisierChar(AUDIT_FILE, "update shop product " + shopProductToUpdate.getName());
     }
 
     public List<ShopProduct> filterProductsByCategory(String category) throws SQLException {
         List<ShopProduct> filteredProducts = new ArrayList<>();
-        for (ShopProduct product : shopProductDAO.getAllProducts()) {
+        for (ShopProduct product : shopProductDAO.read()) {
             if (product.getCategory().equalsIgnoreCase(category)) {
                 filteredProducts.add(product);
             }
@@ -96,7 +94,7 @@ public class ShopProductService {
 
 
     public void restockProduct(Product product, ShopService shopService,Scanner scanner) throws SQLException {
-        ShopProduct shopProduct = shopProductDAO.getProductById(product.getProductId());
+        ShopProduct shopProduct = shopProductDAO.readById(product.getProductId());
         System.out.println("Enter quantity to restock: ");
         int quantity = scanner.nextInt();
         scanner.nextLine();
@@ -106,7 +104,7 @@ public class ShopProductService {
         }
         else {
             shopProduct.setQuantity(shopProduct.getQuantity() + quantity);
-            shopProductDAO.updateProduct(shopProduct);
+            shopProductDAO.update(shopProduct);
             FileManagement.scriereFisierChar(AUDIT_FILE, "update shop product " + shopProduct.getName());
             Shop.getInstance().setBalance(shopService.getShop() - product.getPriceBuy() * quantity);
             shopService.updateShop(Shop.getInstance());
@@ -119,10 +117,10 @@ public class ShopProductService {
         List<ShopProduct> products;
         switch (command){
             case "all":
-                products = shopProductDAO.getAllProducts();
+                products = shopProductDAO.read();
                 break;
             case "price":
-                products = shopProductDAO.getAllProducts();
+                products = shopProductDAO.read();
                 products.sort(Comparator.comparingInt(ShopProduct::getPriceSell));
                 break;
             default:
@@ -154,7 +152,7 @@ public class ShopProductService {
 
     public void deductQuantity(ShopProduct productToBuy, int quantity) throws SQLException {
         productToBuy.setQuantity(productToBuy.getQuantity() - quantity);
-        shopProductDAO.updateProduct(productToBuy);
+        shopProductDAO.update(productToBuy);
         FileManagement.scriereFisierChar(AUDIT_FILE, "update shop product " + productToBuy.getName());
     }
 }

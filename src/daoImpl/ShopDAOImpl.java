@@ -13,7 +13,7 @@ public class ShopDAOImpl implements ShopDAO {
     private final Connection connection = DatabaseConnection.getInstance().getConnection();
 
     @Override
-    public float getShop() throws SQLException {
+    public float read() throws SQLException {
         String query = "SELECT * FROM SHOP";
         ResultSet rs = null;
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -31,11 +31,12 @@ public class ShopDAOImpl implements ShopDAO {
     }
 
     @Override
-    public void updateShop(Shop newShop) throws SQLException {
+    public void update(Shop newShop) throws SQLException {
         String sql = "UPDATE SHOP SET balance=?;";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setFloat(1, newShop.getBalance());
             statement.executeUpdate();
+            connection.commit();
         }
     }
 }

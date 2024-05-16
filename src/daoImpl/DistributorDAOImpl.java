@@ -1,28 +1,22 @@
 package daoImpl;
 
-import dao.DistributorDAO;
+import dao.DAOInterface;
 import model.Distributor;
-import model.Product;
-import model.User;
 import database.DatabaseConnection;
 
-import java.io.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 
 
-
-public class DistributorDAOImpl implements DistributorDAO {
+public class DistributorDAOImpl implements DAOInterface<Distributor> {
     private final Connection connection = DatabaseConnection.getInstance().getConnection();
 
     @Override
-    public List<Distributor> getAllDistributors() throws SQLException {
+    public List<Distributor> read() throws SQLException {
         List<Distributor> distributors = new ArrayList<>();
         String query = "SELECT * FROM DISTRIBUTOR";
         ResultSet rs = null;
@@ -42,8 +36,8 @@ public class DistributorDAOImpl implements DistributorDAO {
         return distributors;
     }
 
-    @Override
-    public Distributor getDistributorById(int id) throws SQLException {
+
+    public Distributor readById(int id) throws SQLException {
         String query = "SELECT * FROM DISTRIBUTOR WHERE id=?";
         ResultSet rs = null;
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -62,8 +56,8 @@ public class DistributorDAOImpl implements DistributorDAO {
         return null;
     }
 
-    @Override
-    public Distributor getDistributorByName(String name) throws SQLException {
+
+    public Distributor readByName(String name) throws SQLException {
         String query = "SELECT * FROM DISTRIBUTOR WHERE name=?";
         ResultSet rs = null;
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -85,36 +79,40 @@ public class DistributorDAOImpl implements DistributorDAO {
 
 
     @Override
-    public void addDistributor(Distributor distributor) throws SQLException {
+    public void create(Distributor distributor) throws SQLException {
         String sql = "INSERT INTO DISTRIBUTOR (name) VALUES (?);";
 
         try(PreparedStatement statement = connection.prepareStatement(sql);) {
             statement.setString(1, distributor.getName());
             statement.executeUpdate();
+            connection.commit();
         }
     }
 
     @Override
-    public void updateDistributor(Distributor newDistributor) throws SQLException {
+    public void update(Distributor newDistributor) throws SQLException {
         String sql = "UPDATE DISTRIBUTOR SET name=? WHERE id=?";
         try(PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setString(1, newDistributor.getName());
             statement.setInt(2, newDistributor.getDistributorId());
             statement.executeUpdate();
+            connection.commit();
         }
     }
 
     @Override
-    public void deleteDistributor(int distributorId) throws SQLException {
+    public void delete(int distributorId) throws SQLException {
         String sql = "DELETE FROM PRODUCT WHERE distributorId = ?";
         try(PreparedStatement statement = connection.prepareStatement(sql);) {
             statement.setInt(1, distributorId);
             statement.executeUpdate();
+            connection.commit();
         }
         sql = "DELETE FROM DISTRIBUTOR WHERE id = ?";
         try(PreparedStatement statement = connection.prepareStatement(sql);) {
             statement.setInt(1, distributorId);
             statement.executeUpdate();
+            connection.commit();
         }
     }
 }

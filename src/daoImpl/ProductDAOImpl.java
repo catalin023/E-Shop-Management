@@ -1,6 +1,6 @@
 package daoImpl;
 
-import dao.ProductDAO;
+import dao.DAOInterface;
 import model.Product;
 import database.DatabaseConnection;
 
@@ -11,11 +11,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductDAOImpl implements ProductDAO {
+public class ProductDAOImpl implements DAOInterface<Product> {
     private final Connection connection = DatabaseConnection.getInstance().getConnection();
 
     @Override
-    public List<Product> getAllProducts() throws SQLException {
+    public List<Product> read() throws SQLException {
         List<Product> products = new ArrayList<>();
         String query = "SELECT * FROM PRODUCT";
         ResultSet rs = null;
@@ -38,8 +38,7 @@ public class ProductDAOImpl implements ProductDAO {
         return products;
     }
 
-    @Override
-    public List<Product> getProductsByDistributorId(int distributorId) throws SQLException {
+    public List<Product> readByDistributorId(int distributorId) throws SQLException {
         List<Product> products = new ArrayList<>();
         String query = "SELECT * FROM PRODUCT WHERE distributorId=?";
         ResultSet rs = null;
@@ -63,8 +62,8 @@ public class ProductDAOImpl implements ProductDAO {
         return products;
     }
 
-    @Override
-    public Product getProductById(int productId) throws SQLException {
+
+    public Product readById(int productId) throws SQLException {
         String query = "SELECT * FROM PRODUCT WHERE id=?";
         ResultSet rs = null;
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -88,7 +87,7 @@ public class ProductDAOImpl implements ProductDAO {
     }
 
     @Override
-    public void addProduct(Product product) throws SQLException {
+    public void create(Product product) throws SQLException {
         String sql = "INSERT INTO PRODUCT (distributorId, name, category, priceBuy) VALUES (?, ?, ?, ?);";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, product.getDistributorId());
@@ -96,11 +95,12 @@ public class ProductDAOImpl implements ProductDAO {
             statement.setString(3, product.getCategory());
             statement.setInt(4, product.getPriceBuy());
             statement.executeUpdate();
+            connection.commit();
         }
     }
 
     @Override
-    public void updateProduct(Product newProduct) throws SQLException {
+    public void update(Product newProduct) throws SQLException {
         String sql = "UPDATE PRODUCT SET distributorId=?, name=?, category=?, priceBuy=? WHERE id=?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, newProduct.getDistributorId());
@@ -109,15 +109,17 @@ public class ProductDAOImpl implements ProductDAO {
             statement.setInt(4, newProduct.getPriceBuy());
             statement.setInt(5, newProduct.getProductId());
             statement.executeUpdate();
+            connection.commit();
         }
     }
 
     @Override
-    public void deleteProduct(int productId) throws SQLException {
+    public void delete(int productId) throws SQLException {
         String sql = "DELETE FROM PRODUCT WHERE id=?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, productId);
             statement.executeUpdate();
+            connection.commit();
         }
     }
 }

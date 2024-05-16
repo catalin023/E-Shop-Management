@@ -1,6 +1,6 @@
 package daoImpl;
 
-import dao.AdminDAO;
+import dao.DAOInterface;
 import model.Admin;
 import database.DatabaseConnection;
 
@@ -11,11 +11,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminDAOImpl implements AdminDAO {
+public class AdminDAOImpl implements DAOInterface<Admin> {
     private final Connection connection = DatabaseConnection.getInstance().getConnection();
 
     @Override
-    public List<Admin> getAllAdmins() throws SQLException {
+    public List<Admin> read() throws SQLException {
         List<Admin> admins = new ArrayList<>();
         String query = "SELECT * FROM ADMIN";
         ResultSet rs = null;
@@ -37,8 +37,7 @@ public class AdminDAOImpl implements AdminDAO {
         return admins;
     }
 
-    @Override
-    public Admin getAdminById(int adminId) throws SQLException {
+    public Admin readById(int adminId) throws SQLException {
         String query = "SELECT * FROM ADMIN WHERE id=?";
         ResultSet rs = null;
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -60,8 +59,7 @@ public class AdminDAOImpl implements AdminDAO {
         return null;
     }
 
-    @Override
-    public Admin getAdminByEmail(String email) throws SQLException {
+    public Admin readByEmail(String email) throws SQLException {
         String query = "SELECT * FROM ADMIN WHERE email=?";
         ResultSet rs = null;
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -84,7 +82,7 @@ public class AdminDAOImpl implements AdminDAO {
     }
 
     @Override
-    public void addAdmin(Admin admin) throws SQLException {
+    public void create(Admin admin) throws SQLException {
         String sql = "INSERT INTO ADMIN (name, email, password) VALUES (?, ?, ?);";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -92,11 +90,12 @@ public class AdminDAOImpl implements AdminDAO {
             statement.setString(2, admin.getEmail());
             statement.setString(3, admin.getPassword());
             statement.executeUpdate();
+            connection.commit();
         }
     }
 
     @Override
-    public void updateAdmin(Admin newAdmin) throws SQLException {
+    public void update(Admin newAdmin) throws SQLException {
         String sql = "UPDATE ADMIN SET name=?, email=?, password=? WHERE id=?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, newAdmin.getName());
@@ -104,15 +103,17 @@ public class AdminDAOImpl implements AdminDAO {
             statement.setString(3, newAdmin.getPassword());
             statement.setInt(4, newAdmin.getAdminId());
             statement.executeUpdate();
+            connection.commit();
         }
     }
 
     @Override
-    public void deleteAdmin(int adminId) throws SQLException {
+    public void delete(int adminId) throws SQLException {
         String sql = "DELETE FROM ADMIN WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, adminId);
             statement.executeUpdate();
+            connection.commit();
         }
     }
 }

@@ -5,13 +5,11 @@ import model.WishList;
 import database.DatabaseConnection;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class WishListDAOImpl {
     private final Connection connection = DatabaseConnection.getInstance().getConnection();
 
-    public WishList getWishList(int userId) throws SQLException {
+    public WishList read(int userId) throws SQLException {
         WishList wishList = new WishList();
         String query = "SELECT * FROM WISHLIST LEFT JOIN SHOP_PRODUCT ON SHOP_PRODUCT.id = WISHLIST.productId WHERE userId=?";
         ResultSet rs = null;
@@ -40,31 +38,34 @@ public class WishListDAOImpl {
     }
 
 
-    public void updateWishListItem(int userId, int productId, int quantity) throws SQLException {
+    public void update(int userId, int productId, int quantity) throws SQLException {
         String sql = "UPDATE WISHLIST SET quantity=? WHERE userId=? and productId=?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, quantity);
             statement.setInt(2, userId);
             statement.setInt(3, productId);
             statement.executeUpdate();
+            connection.commit();
         }
     }
 
-    public void addItem(int userId, int productId, int quantity) throws SQLException {
+    public void create(int userId, int productId, int quantity) throws SQLException {
         String sql = "INSERT INTO WISHLIST VALUES(?,?,?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, userId);
             statement.setInt(2, productId);
             statement.setInt(3, quantity);
             statement.executeUpdate();
+            connection.commit();
         }
     }
 
-    public void deleteItems(int userId) throws SQLException {
+    public void delete(int userId) throws SQLException {
         String sql = "DELETE FROM WISHLIST WHERE userId=?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, userId);
             statement.executeUpdate();
+            connection.commit();
         }
     }
 }

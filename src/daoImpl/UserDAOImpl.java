@@ -1,6 +1,6 @@
 package daoImpl;
 
-import dao.UserDAO;
+import dao.DAOInterface;
 import model.User;
 import database.DatabaseConnection;
 
@@ -11,11 +11,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAOImpl implements UserDAO {
+public class UserDAOImpl implements DAOInterface<User> {
     private final Connection connection = DatabaseConnection.getInstance().getConnection();
 
     @Override
-    public List<User> getAllUsers() throws SQLException {
+    public List<User> read() throws SQLException {
         List<User> users = new ArrayList<>();
         String query = "SELECT * FROM USER";
         ResultSet rs = null;
@@ -38,8 +38,7 @@ public class UserDAOImpl implements UserDAO {
         return users;
     }
 
-    @Override
-    public User getUserById(int userId) throws SQLException {
+    public User readById(int userId) throws SQLException {
         String query = "SELECT * FROM USER WHERE id=?";
         ResultSet rs = null;
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -63,7 +62,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void addUser(User user) throws SQLException {
+    public void create(User user) throws SQLException {
         String sql = "INSERT INTO USER (name, email, password, balance) VALUES (?, ?, ?, ?);";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, user.getName());
@@ -71,11 +70,12 @@ public class UserDAOImpl implements UserDAO {
             statement.setString(3, user.getPassword());
             statement.setFloat(4, user.getBalance());
             statement.executeUpdate();
+            connection.commit();
         }
     }
 
     @Override
-    public void updateUser(User newUser) throws SQLException {
+    public void update(User newUser) throws SQLException {
         String sql = "UPDATE USER SET name=?, email=?, password=?, balance=? WHERE id=?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, newUser.getName());
@@ -84,20 +84,21 @@ public class UserDAOImpl implements UserDAO {
             statement.setFloat(4, newUser.getBalance());
             statement.setInt(5, newUser.getUserId());
             statement.executeUpdate();
+            connection.commit();
         }
     }
 
     @Override
-    public void deleteUser(int userId) throws SQLException {
+    public void delete(int userId) throws SQLException {
         String sql = "DELETE FROM USER WHERE id=?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, userId);
             statement.executeUpdate();
+            connection.commit();
         }
     }
 
-    @Override
-    public User getUserByEmail(String email) throws SQLException {
+    public User readByEmail(String email) throws SQLException {
         String query = "SELECT * FROM USER WHERE email=?";
         ResultSet rs = null;
         try (PreparedStatement statement = connection.prepareStatement(query)) {
