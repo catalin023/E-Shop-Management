@@ -4,35 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79059579-1c12-413d-b20b-a9c2c7701c8f" name="Changes" comment="audit saves">
-      <change afterPath="$PROJECT_DIR$/src/dao/DAOInterface.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/menu/AdminMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/menu/DistributorMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/menu/UserMenu.java" afterDir="false" />
+    <list default="true" id="79059579-1c12-413d-b20b-a9c2c7701c8f" name="Changes" comment="DAOInterface">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/application/AdminProgram.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/application/DistributorProgram.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/application/UserProgram.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dao/AdminDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dao/DistributorDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dao/ProductDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dao/ShopDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/ShopDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dao/ShopProductDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dao/UserDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/daoImpl/AdminDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/daoImpl/AdminDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/daoImpl/DistributorDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/daoImpl/DistributorDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/daoImpl/ProductDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/daoImpl/ProductDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/daoImpl/ShopDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/daoImpl/ShopDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/daoImpl/ShopProductDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/daoImpl/ShopProductDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/daoImpl/UserDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/daoImpl/UserDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/daoImpl/WishListDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/daoImpl/WishListDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/service/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/AdminService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/service/DistributorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/DistributorService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/service/ShopProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/ShopProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/service/ShopService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/ShopService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,7 +141,8 @@
       <workItem from="1714494365135" duration="8952000" />
       <workItem from="1714658354327" duration="7477000" />
       <workItem from="1714744888237" duration="20404000" />
-      <workItem from="1715877642067" duration="3958000" />
+      <workItem from="1715877642067" duration="4265000" />
+      <workItem from="1715881964142" duration="36000" />
     </task>
     <task id="LOCAL-00001" summary="create_project">
       <option name="closed" value="true" />
@@ -330,7 +304,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714776510701</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="DAOInterface">
+      <option name="closed" value="true" />
+      <created>1715881860315</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1715881860315</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -365,6 +347,7 @@
     <MESSAGE value="big changes that still dont work" />
     <MESSAGE value="database connection" />
     <MESSAGE value="audit saves" />
-    <option name="LAST_COMMIT_MESSAGE" value="audit saves" />
+    <MESSAGE value="DAOInterface" />
+    <option name="LAST_COMMIT_MESSAGE" value="DAOInterface" />
   </component>
 </project>

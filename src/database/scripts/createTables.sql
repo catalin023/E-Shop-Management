@@ -54,7 +54,5 @@ create table `E-Shop`.`SHOP` (
 ALTER TABLE `E-Shop`.`PRODUCT`
 ADD FOREIGN KEY (distributorId) REFERENCES `E-Shop`.`DISTRIBUTOR`(id);
 
-DROP table WISHLIST;
-drop table SHOP_PRODUCT
 
 
